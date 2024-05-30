@@ -1,19 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./Button";
 import DepartmentSelector from "./DatosColombia";
-import useUpdateFormData from "../hooks/updateDispatch";
+import { useDispatch } from "react-redux";
+import { setData } from "../store/slices/counter/counterSlides";
 
 export const Inicio = () => {
-  const [id, setId] = useState("");
+  const [formdata, setFormData] = useState({
+    id: "",
+    ciudad: "",
+  });
 
-  const { updateField } = useUpdateFormData();
+  const HandleChangeData = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formdata, [name]: value });
+  };
 
-  useEffect(() => {
-    updateField();
-  }, []);
+  const dispatch = useDispatch();
+
+  const updateField = (name, value) => {
+    dispatch(setData({ key: name, value: value }));
+  };
+  const handleRedux = (e) => {
+    e.preventDefault();
+    updateField("id", formdata.id);
+    updateField("ciudad", formdata.ciudad);
+  };
 
   return (
-    <div className="flex flex-col justify-between h-full">
+    <form
+      onSubmit={handleRedux}
+      className="flex flex-col justify-between h-full"
+    >
       <div></div>
       <div className="w-full">
         <h1>Hola,</h1>
@@ -21,18 +38,18 @@ export const Inicio = () => {
           Para continuar, escribe el ID de tu punto Inter Rapidísimo
         </p>
         <input
-          onChange={(e) => setId(e.target.value)}
+          onChange={HandleChangeData}
           className="text-center"
-          value={id}
+          value={formdata.id}
           name="id"
           type="text"
           placeholder="Número de id"
         />
 
-        <DepartmentSelector />
+        <DepartmentSelector HandleChangeData={HandleChangeData} />
       </div>
 
-      <Button handleClick={(e) => updateField("id", id)} text={"Empecemos"} />
-    </div>
+      <Button type={true} text={"Empecemos"} />
+    </form>
   );
 };

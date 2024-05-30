@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import data from "../data/dataColombia.json";
+import useUpdateFormData from "../hooks/updateDispatch";
 
-function DepartmentSelector() {
+function DepartmentSelector({ HandleChangeData }) {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [cities, setCities] = useState([]);
 
@@ -19,7 +20,7 @@ function DepartmentSelector() {
   };
 
   return (
-    <div>
+    <>
       <select value={selectedDepartment} onChange={handleDepartmentChange}>
         <option value="">Seleccione un departamento</option>
         {data.map((department) => (
@@ -28,7 +29,11 @@ function DepartmentSelector() {
           </option>
         ))}
       </select>
-      <select disabled={!selectedDepartment}>
+      <select
+        disabled={!selectedDepartment}
+        onChange={HandleChangeData}
+        name="ciudad"
+      >
         <option value="">Seleccione una ciudad</option>
         {cities.map((city) => (
           <option key={city} value={city}>
@@ -36,7 +41,7 @@ function DepartmentSelector() {
           </option>
         ))}
       </select>
-    </div>
+    </>
   );
 }
 

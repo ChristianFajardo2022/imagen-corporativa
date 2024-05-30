@@ -3,6 +3,7 @@ import { Button } from "./componentes/Button";
 import { BoxMobiliario } from "./componentes/BoxMobiliario";
 import { Selector } from "./componentes/Selector";
 import { useState } from "react";
+import TakePhoto from "./componentes/TakePhoto";
 
 function App() {
   const { Pagina } = useSelector((state) => state.counter);
@@ -28,6 +29,15 @@ function App() {
       ))}
 
       <BoxMobiliario title={"Antiguo"} img={"/antiguo.png"} />
+      <Button customStyle={`  `} text={"Boton"} />
+      <h1>Hola,</h1>
+      <h2>Queremos estar seguros de que eres tú</h2>
+      <p>Para continuar, escribe el ID de tu punto Inter Rapidísimo</p>
+      <input type="text" value="hola" />
+      <span>Para continuar, escribe el ID de tu punto Inter Rapidísimo</span>
+      <span className="selectoresTexto">selector</span>
+      <span className="selectoresCaja">selector</span>
+      <TakePhoto />
     </>
   );
 }

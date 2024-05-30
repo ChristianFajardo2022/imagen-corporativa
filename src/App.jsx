@@ -1,13 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./componentes/Home";
-import Seguridad from "./componentes/Seguridad";
-import Comprobado from "./componentes/Comprobado";
 import { Button } from "./componentes/Button";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./componentes/Home";
-import Seguridad from "./componentes/Seguridad";
-import Comprobado from "./componentes/Comprobado";
-import TakePhoto from "./componentes/TakePhoto";
 
 function App() {
   return (

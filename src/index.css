@@ -90,3 +90,14 @@ select {
 .flexCenter {
   @apply flex justify-center items-center;
 }
+
+/*estilos para ocultar decremento nativa de inputs tipo numero*/
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

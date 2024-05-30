@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
+import { storage } from '../firebase'; // Asegúrate de que la ruta sea correcta
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { v4 as uuidv4 } from 'uuid';
 
 const TakePhoto = () => {
   const [imgSrc, setImgSrc] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [downloadURL, setDownloadURL] = useState(null);
 
   const handleCapture = (event) => {
     const file = event.target.files[0];
@@ -9,8 +14,24 @@ const TakePhoto = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImgSrc(reader.result);
+        handleUpload(file); // Llama a handleUpload con el archivo
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleUpload = async (file) => {
+    setUploading(true);
+    const storageRef = ref(storage, `images/${uuidv4()}`); // Usa UUID para nombres únicos
+
+    try {
+      await uploadBytes(storageRef, file);
+      const url = await getDownloadURL(storageRef);
+      setDownloadURL(url);
+      setUploading(false);
+    } catch (error) {
+      console.error("Error al subir la imagen:", error);
+      setUploading(false);
     }
   };
 
@@ -30,10 +51,19 @@ const TakePhoto = () => {
       >
         Tomar Foto
       </button>
-      {imgSrc && (
+      {uploading && <p>Subiendo imagen...</p>}
+      {imgSrc && !uploading && (
         <div className="mt-4">
           <h2 className="text-xl">Foto tomada:</h2>
           <img src={imgSrc} alt="Foto tomada" className="taken-photo" />
+        </div>
+      )}
+      {downloadURL && (
+        <div className="mt-4">
+          <h2 className="text-xl">URL de descarga:</h2>
+          <a href={downloadURL} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+            {downloadURL}
+          </a>
         </div>
       )}
     </div>

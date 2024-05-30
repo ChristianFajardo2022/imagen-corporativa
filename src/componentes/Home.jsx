@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getLocaleById } from '../firebase/firebaseService';
 
 const Home = () => {
   const [id, setId] = useState('');
@@ -12,9 +13,9 @@ const Home = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/locales/${id}`);
-      if (!response.ok) {
-        throw new Error('ID no encontrado');
+      const { data, error } = await getLocaleById(id);
+      if (error) {
+        throw new Error(error);
       }
       // Si el ID es correcto, navega al componente Seguridad con el ID como parámetro en la URL
       navigate(`/seguridad/${id}`);

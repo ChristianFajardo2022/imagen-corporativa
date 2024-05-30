@@ -18,16 +18,16 @@ const Seguridad = () => {
   const [questions, setQuestions] = useState([]);
   const [opciones, setOpciones] = useState([]);
   const [error, setError] = useState(null);
+  const { formData } = useSelector((state) => state.counter);
   const dispatch = useDispatch();
 
   //Funcion que ejecuta el resultado a TRUE
-  dispatch(resultado());
+  // dispatch(resultado());
 
   useEffect(() => {
     setQuestions([
       "¿Cuál de estos es el correo electrónico con el que registraste tu punto?",
       "¿Cuál es la dirección de tu local?",
-      "¿En qué ciudad (municipio) está ubicado tu local?",
     ]);
   }, []);
 
@@ -39,7 +39,7 @@ const Seguridad = () => {
 
   const cargarRespuestaCorrecta = async (index) => {
     try {
-      const { data, error } = await getLocaleById(getIdFromURL());
+      const { data, error } = await getLocaleById(formData.id);
       if (error) {
         throw new Error(error);
       }
@@ -62,14 +62,7 @@ const Seguridad = () => {
               .map((item) => item.direccion), // Dos datos falsos de direcciones
           ]);
           break;
-        case 2:
-          opcionesAleatorias = mezclarOpciones([
-            data.telefono.toString(), // Respuesta correcta
-            ...datosFalsos.datosAleatorios
-              .slice(0, 2)
-              .map((item) => item.telefono), // Dos datos falsos de teléfonos
-          ]);
-          break;
+       
         default:
           opcionesAleatorias = [];
       }
@@ -80,10 +73,7 @@ const Seguridad = () => {
     }
   };
 
-  const getIdFromURL = () => {
-    const segments = window.location.pathname.split("/");
-    return segments[segments.length - 1];
-  };
+ 
 
   const handleAnswer = () => {
     setCurrentQuestionIndex((current) => current + 1);

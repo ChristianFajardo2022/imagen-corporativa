@@ -9,6 +9,7 @@
   --btn-active: #2e3136;
   --text-color-btn: #c1c1c1;
   --titulos: #2e3136;
+  --TextoBlack: #09080d;
   color: #7d7e79;
 }
 
@@ -17,7 +18,7 @@ html {
 }
 body {
   @apply fondoDegradado m-0 p-0 box-content;
-  @apply w-full h-full;
+
   font-family: "Inter", sans-serif;
 }
 #root {
@@ -44,13 +45,13 @@ span {
   @apply text-xl letrasContridasParrafos;
 }
 input {
-  @apply letrasContridasParrafos rounded-lg shadow-xl wBox hBox p-2;
+  @apply letrasContridasParrafos  wBox hBox  flex items-center justify-start shadow-xl rounded-2xl py-2 px-8 effect;
 }
 .wBox {
-  @apply w-5/6;
+  @apply w-5/6 mx-auto my-6;
 }
 .hBox {
-  @apply h-10;
+  @apply h-16;
 }
 .fondoDegradado {
   @apply bg-gradient-to-tr from-[--bg-color-one] from-15%  to-[--bg-color-two] to-85%;
@@ -61,7 +62,7 @@ input {
 }
 
 .btn {
-  @apply btnDisable wBox hBox shadow-xl rounded-full effect flexCenter m-auto;
+  @apply btnDisable wBox hBox shadow-xl rounded-full effect flexCenter;
 }
 .btnDisable {
   @apply bg-[--btn-ligth] text-[--text-color-btn] hover:bg-[--btn-active] hover:text-white;
@@ -70,10 +71,13 @@ input {
   @apply bg-[--btn-active] text-white;
 }
 .selector {
-  @apply btnDisable flex items-center justify-start shadow-xl rounded-lg p-2 effect;
+  @apply btnDisable flex items-center justify-start shadow-xl rounded-2xl  effect;
 }
 .selectoresTexto {
-  @apply selector wBox hBox;
+  @apply selector wBox hBox py-2 px-8;
+}
+.selectorActive {
+  @apply bg-[--btn-active] text-white;
 }
 .selectoresCaja {
   @apply selector wBox h-48  mx-auto;

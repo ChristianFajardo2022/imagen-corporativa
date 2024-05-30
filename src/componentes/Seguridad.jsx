@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 import datosFalsos from "./data/datosfalsos.json"; // Importa los datos falsos
+import { useSelector } from "react-redux";
 
 const mezclarOpciones = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -33,36 +34,44 @@ const Seguridad = () => {
 
   const cargarRespuestaCorrecta = async (index) => {
     try {
-      const response = await fetch(`http://localhost:5000/locales/${getIdFromURL()}`);
+      const response = await fetch(
+        `http://localhost:5000/locales/${getIdFromURL()}`
+      );
       if (!response.ok) {
-        throw new Error('ID no encontrado');
+        throw new Error("ID no encontrado");
       }
       const data = await response.json();
-    
+
       let opcionesAleatorias = [];
       switch (index) {
         case 0:
           opcionesAleatorias = mezclarOpciones([
             data.email, // Respuesta correcta
-            ...datosFalsos.datosAleatorios.slice(0, 2).map(item => item.correo), // Dos datos falsos de emails
+            ...datosFalsos.datosAleatorios
+              .slice(0, 2)
+              .map((item) => item.correo), // Dos datos falsos de emails
           ]);
           break;
         case 1:
           opcionesAleatorias = mezclarOpciones([
             data.direccion, // Respuesta correcta
-            ...datosFalsos.datosAleatorios.slice(0, 2).map(item => item.direccion), // Dos datos falsos de direcciones
+            ...datosFalsos.datosAleatorios
+              .slice(0, 2)
+              .map((item) => item.direccion), // Dos datos falsos de direcciones
           ]);
           break;
         case 2:
           opcionesAleatorias = mezclarOpciones([
             data.telefono.toString(), // Respuesta correcta
-            ...datosFalsos.datosAleatorios.slice(0, 2).map(item => item.telefono), // Dos datos falsos de teléfonos
+            ...datosFalsos.datosAleatorios
+              .slice(0, 2)
+              .map((item) => item.telefono), // Dos datos falsos de teléfonos
           ]);
           break;
         default:
           opcionesAleatorias = [];
       }
-    
+
       setOpciones(opcionesAleatorias);
     } catch (error) {
       setError(error.message);

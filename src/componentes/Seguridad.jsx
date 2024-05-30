@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 import { getLocaleById } from "../firebase/firebaseService";
 import datosFalsos from "./data/datosfalsos.json"; // Importa los datos falsos
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { resultado } from "../store/slices/counter/counterSlides";
 
 const mezclarOpciones = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -17,6 +18,10 @@ const Seguridad = () => {
   const [questions, setQuestions] = useState([]);
   const [opciones, setOpciones] = useState([]);
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+
+  //Funcion que ejecuta el resultado a TRUE
+  dispatch(resultado());
 
   useEffect(() => {
     setQuestions([

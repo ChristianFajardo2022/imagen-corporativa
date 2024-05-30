@@ -2,14 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Button } from "./Button";
 import DepartmentSelector from "./DatosColombia";
 import { useDispatch } from "react-redux";
-import { setData } from "../store/slices/counter/counterSlides";
+import { increment, setData } from "../store/slices/counter/counterSlides";
 
 export const Inicio = () => {
+  const [active, setActive] = useState(false);
   const [formdata, setFormData] = useState({
     id: "",
     ciudad: "",
   });
-
+  useEffect(() => {
+    if (formdata.id !== "" && formdata.ciudad !== "") {
+      setActive(true);
+    }
+  }, [formdata]);
   const HandleChangeData = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formdata, [name]: value });
@@ -24,6 +29,7 @@ export const Inicio = () => {
     e.preventDefault();
     updateField("id", formdata.id);
     updateField("ciudad", formdata.ciudad);
+    dispatch(increment());
   };
 
   return (
@@ -42,14 +48,18 @@ export const Inicio = () => {
           className="text-center"
           value={formdata.id}
           name="id"
-          type="text"
+          type="number"
           placeholder="Número de id"
         />
 
         <DepartmentSelector HandleChangeData={HandleChangeData} />
       </div>
 
-      <Button type={true} text={"Empecemos"} />
+      <Button
+        type={true}
+        text={"Empecemos"}
+        customStyle={` ${active ? "btnActive" : "pointer-events-none"}`}
+      />
     </form>
   );
 };

@@ -1,4 +1,5 @@
 import { Button } from "./componentes/Button";
+import TakePhoto from "./componentes/TakePhoto";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <span>Para continuar, escribe el ID de tu punto Inter Rapidísimo</span>
       <span className="selectoresTexto">selector</span>
       <span className="selectoresCaja">selector</span>
+      <TakePhoto/>
     </>
   );
 }

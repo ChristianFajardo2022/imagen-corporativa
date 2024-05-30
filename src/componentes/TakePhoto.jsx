@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { storage } from '../firebase'; // Asegúrate de que la ruta sea correcta
+import { storage } from '../firebase/firebaseConfig'; // Asegúrate de que la ruta sea correcta
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import imageCompression from 'browser-image-compression';

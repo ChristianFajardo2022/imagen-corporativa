@@ -24,13 +24,12 @@ const Seguridad = () => {
   const dispatch = useDispatch();
 
   //Funcion que ejecuta el resultado a TRUE
-  dispatch(resultado());
+  // dispatch(resultado());
 
   useEffect(() => {
     setQuestions([
       "¿Cuál de estos es el correo electrónico con el que registraste tu punto?",
       "¿Cuál es la dirección de tu local?",
-      "¿En qué ciudad (municipio) está ubicado tu local?",
     ]);
   }, []);
 
@@ -65,14 +64,7 @@ const Seguridad = () => {
               .map((item) => item.direccion), // Dos datos falsos de direcciones
           ]);
           break;
-        case 2:
-          opcionesAleatorias = mezclarOpciones([
-            data.telefono.toString(), // Respuesta correcta
-            ...datosFalsos.datosAleatorios
-              .slice(0, 2)
-              .map((item) => item.telefono), // Dos datos falsos de teléfonos
-          ]);
-          break;
+
         default:
           opcionesAleatorias = [];
       }
@@ -81,11 +73,6 @@ const Seguridad = () => {
     } catch (error) {
       setError(error.message);
     }
-  };
-
-  const getIdFromURL = () => {
-    const segments = window.location.pathname.split("/");
-    return segments[segments.length - 1];
   };
 
   const handleAnswer = () => {

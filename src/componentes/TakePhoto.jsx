@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { storage } from '../firebase/firebaseConfig'; // Asegúrate de que la ruta sea correcta
+import { storage } from '../firebase'; // Asegúrate de que la ruta sea correcta
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -11,13 +11,50 @@ const TakePhoto = () => {
   const handleCapture = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImgSrc(reader.result);
-        handleUpload(file); // Llama a handleUpload con el archivo
-      };
-      reader.readAsDataURL(file);
+      resizeImage(file, 800, 600, 0.7, (resizedBlob) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setImgSrc(reader.result);
+          handleUpload(resizedBlob); // Llama a handleUpload con el archivo redimensionado
+        };
+        reader.readAsDataURL(resizedBlob);
+      });
     }
+  };
+
+  const resizeImage = (file, maxWidth, maxHeight, quality, callback) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > maxWidth) {
+            height *= maxWidth / width;
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width *= maxHeight / height;
+            height = maxHeight;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        canvas.toBlob((blob) => {
+          callback(blob);
+        }, 'image/jpeg', quality);
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleUpload = async (file) => {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
+import { getLocaleById } from "../firebase/firebaseService";
 import datosFalsos from "./data/datosfalsos.json"; // Importa los datos falsos
 import { useSelector } from "react-redux";
 
@@ -15,7 +16,6 @@ const Seguridad = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState([]);
   const [opciones, setOpciones] = useState([]);
-  const [respuestaCorrecta, setRespuestaCorrecta] = useState("");
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -34,13 +34,10 @@ const Seguridad = () => {
 
   const cargarRespuestaCorrecta = async (index) => {
     try {
-      const response = await fetch(
-        `http://localhost:5000/locales/${getIdFromURL()}`
-      );
-      if (!response.ok) {
-        throw new Error("ID no encontrado");
+      const { data, error } = await getLocaleById(getIdFromURL());
+      if (error) {
+        throw new Error(error);
       }
-      const data = await response.json();
 
       let opcionesAleatorias = [];
       switch (index) {

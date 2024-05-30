@@ -53,7 +53,7 @@ const TakePhoto = () => {
         accept="image/*"
         capture="environment"
         onChange={handleCapture}
-        className="capture-input"
+        className="capture-input hidden"
       />
       <button
         onClick={() => document.querySelector('.capture-input').click()}

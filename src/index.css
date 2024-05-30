@@ -4,17 +4,80 @@
 
 :root {
   --bg-color-one: #ccd5e2;
-  --bg-color-two: #ccd5e2;
-  --gradient: ;
+  --bg-color-two: #f8fbff;
+  --btn-ligth: #f2f4f9;
+  --btn-active: #2e3136;
+  --text-color-btn: #c1c1c1;
+  --titulos: #2e3136;
+  color: #7d7e79;
 }
 
+html {
+  @apply w-full h-screen xl:text-[0.7vw] xs:text-[3vw] sm:text-[1.5vw] lg:text-[1vw] scroll-smooth;
+}
 body {
+  @apply fondoDegradado m-0 p-0 box-content;
+  @apply w-full h-full;
   font-family: "Inter", sans-serif;
-  margin: 0;
-  padding: 0;
-  heigth: 100%;
+}
+#root {
+  @apply w-full h-full;
+}
+img,
+svg {
+  @apply w-full h-full object-cover;
+}
+h1 {
+  @apply text-7xl font-semibold text-[--titulos] letrasContridasTitulos;
+}
+h2 {
+  @apply text-6xl letrasContridasTitulos;
+}
+.letrasContridasTitulos {
+  @apply -tracking-widest;
+}
+.letrasContridasParrafos {
+  @apply -tracking-wider;
+}
+p,
+span {
+  @apply text-xl letrasContridasParrafos;
+}
+input {
+  @apply letrasContridasParrafos rounded-lg shadow-xl wBox hBox p-2;
+}
+.wBox {
+  @apply w-5/6;
+}
+.hBox {
+  @apply h-10;
+}
+.fondoDegradado {
+  @apply bg-gradient-to-tr from-[--bg-color-one] from-15%  to-[--bg-color-two] to-85%;
 }
 
-.fondo_degradado {
-  @apply bg-gradient-to-tr from-[--bg-color-one] from-15%  to-[--bg-color-two] to-85%;
+.effect {
+  @apply transition-all ease-in-out duration-500;
+}
+
+.btn {
+  @apply btnDisable wBox hBox shadow-xl rounded-full effect flexCenter m-auto;
+}
+.btnDisable {
+  @apply bg-[--btn-ligth] text-[--text-color-btn] hover:bg-[--btn-active] hover:text-white;
+}
+.btnActive {
+  @apply bg-[--btn-active] text-white;
+}
+.selector {
+  @apply btnDisable flex items-center justify-start shadow-xl rounded-lg p-2 effect;
+}
+.selectoresTexto {
+  @apply selector wBox hBox;
+}
+.selectoresCaja {
+  @apply selector wBox h-48  mx-auto;
+}
+.flexCenter {
+  @apply flex justify-center items-center;
 }

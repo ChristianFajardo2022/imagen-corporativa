@@ -1,0 +1,255 @@
+{
+  "datosAleatorios": [ 
+    {
+      "direccion": "Calle 1 #12-43",
+      "correo": "juanperez@gmail.com",
+      "telefono": "+57 300 123 4567"
+    },
+    {
+      "direccion": "Carrera 2 #45-86",
+      "correo": "mariagonzalez@gmail.com",
+      "telefono": "+57 310 234 5678"
+    },
+    {
+      "direccion": "Avenida 3 #75-89",
+      "correo": "luisrodriguez@gmail.com",
+      "telefono": "+57 320 345 6789"
+    },
+    {
+      "direccion": "Calle 4 #10-11",
+      "correo": "anitamartinez@gmail.com",
+      "telefono": "+57 300 456 7890"
+    },
+    {
+      "direccion": "Carrera 5 #12-13",
+      "correo": "pedrohernandez@gmail.com",
+      "telefono": "+57 310 567 8901"
+    },
+    {
+      "direccion": "Avenida 6 #14-15",
+      "correo": "carloslopez@gmail.com",
+      "telefono": "+57 320 678 9012"
+    },
+    {
+      "direccion": "Calle 7 #16-17",
+      "correo": "marthaperez@gmail.com",
+      "telefono": "+57 300 789 0123"
+    },
+    {
+      "direccion": "Carrera 8 #18-19",
+      "correo": "andresrojas@gmail.com",
+      "telefono": "+57 310 890 1234"
+    },
+    {
+      "direccion": "Avenida 9 #20-21",
+      "correo": "lauragonzalez@gmail.com",
+      "telefono": "+57 320 901 2345"
+    },
+    {
+      "direccion": "Calle 10 #22-23",
+      "correo": "josemartinez@gmail.com",
+      "telefono": "+57 300 012 3456"
+    },
+    {
+      "direccion": "Carrera 11 #24-25",
+      "correo": "danielhernandez@gmail.com",
+      "telefono": "+57 310 123 4567"
+    },
+    {
+      "direccion": "Avenida 12 #26-27",
+      "correo": "elenarodriguez@gmail.com",
+      "telefono": "+57 320 234 5678"
+    },
+    {
+      "direccion": "Calle 13 #28-29",
+      "correo": "juancarloslopez@gmail.com",
+      "telefono": "+57 300 345 6789"
+    },
+    {
+      "direccion": "Carrera 14 #30-31",
+      "correo": "pabloandresrojas@gmail.com",
+      "telefono": "+57 310 456 7890"
+    },
+    {
+      "direccion": "Avenida 15 #32-33",
+      "correo": "nataliamartinez@gmail.com",
+      "telefono": "+57 320 567 8901"
+    },
+    {
+      "direccion": "Calle 16 #34-35",
+      "correo": "luisfernandez@gmail.com",
+      "telefono": "+57 300 678 9012"
+    },
+    {
+      "direccion": "Carrera 17 #36-37",
+      "correo": "carolinaperez@gmail.com",
+      "telefono": "+57 310 789 0123"
+    },
+    {
+      "direccion": "Avenida 18 #38-39",
+      "correo": "andreslara@gmail.com",
+      "telefono": "+57 320 890 1234"
+    },
+    {
+      "direccion": "Calle 19 #40-41",
+      "correo": "cristinavargas@gmail.com",
+      "telefono": "+57 300 901 2345"
+    },
+    {
+      "direccion": "Carrera 20 #42-43",
+      "correo": "jorgelopez@gmail.com",
+      "telefono": "+57 310 012 3456"
+    },
+    {
+      "direccion": "Avenida 21 #44-45",
+      "correo": "camilagonzalez@gmail.com",
+      "telefono": "+57 320 123 4567"
+    },
+    {
+      "direccion": "Calle 22 #46-47",
+      "correo": "santiagorodriguez@gmail.com",
+      "telefono": "+57 300 234 5678"
+    },
+    {
+      "direccion": "Carrera 23 #48-49",
+      "correo": "danielarodriguez@gmail.com",
+      "telefono": "+57 310 345 6789"
+    },
+    {
+      "direccion": "Avenida 24 #50-51",
+      "correo": "lucaslopez@gmail.com",
+      "telefono": "+57 320 456 7890"
+    },
+    {
+      "direccion": "Calle 25 #52-53",
+      "correo": "mariafernandez@gmail.com",
+      "telefono": "+57 300 567 8901"
+    },
+    {
+      "direccion": "Carrera 26 #54-55",
+      "correo": "juanperez@outlook.com",
+      "telefono": "+57 310 678 9012"
+    },
+    {
+      "direccion": "Avenida 27 #56-57",
+      "correo": "mariagonzalez@outlook.com",
+      "telefono": "+57 320 789 0123"
+    },
+    {
+      "direccion": "Calle 28 #58-59",
+      "correo": "luisrodriguez@outlook.com",
+      "telefono": "+57 300 890 1234"
+    },
+    {
+      "direccion": "Carrera 29 #60-61",
+      "correo": "anitamartinez@outlook.com",
+      "telefono": "+57 310 901 2345"
+    },
+    {
+      "direccion": "Avenida 30 #62-63",
+      "correo": "pedrohernandez@outlook.com",
+      "telefono": "+57 320 012 3456"
+    },
+    {
+      "direccion": "Calle 31 #64-65",
+      "correo": "carloslopez@outlook.com",
+      "telefono": "+57 300 123 4567"
+    },
+    {
+      "direccion": "Carrera 32 #66-67",
+      "correo": "marthaperez@outlook.com",
+      "telefono": "+57 310 234 5678"
+    },
+    {
+      "direccion": "Avenida 33 #68-69",
+      "correo": "andresrojas@outlook.com",
+      "telefono": "+57 320 345 6789"
+    },
+    {
+      "direccion": "Calle 34 #70-71",
+      "correo": "lauragonzalez@outlook.com",
+      "telefono": "+57 300 456 7890"
+    },
+    {
+      "direccion": "Carrera 35 #72-73",
+      "correo": "josemartinez@outlook.com",
+      "telefono": "+57 310 567 8901"
+    },
+    {
+      "direccion": "Avenida 36 #74-75",
+      "correo": "danielhernandez@outlook.com",
+      "telefono": "+57 320 678 9012"
+    },
+    {
+      "direccion": "Calle 37 #76-77",
+      "correo": "elenarodriguez@outlook.com",
+      "telefono": "+57 300 789 0123"
+    },
+    {
+      "direccion": "Carrera 38 #78-79",
+      "correo": "juancarloslopez@outlook.com",
+      "telefono": "+57 310 890 1234"
+    },
+    {
+      "direccion": "Avenida 39 #80-81",
+      "correo": "pabloandresrojas@outlook.com",
+      "telefono": "+57 320 901 2345"
+    },
+    {
+      "direccion": "Calle 40 #82-83",
+      "correo": "nataliamartinez@outlook.com",
+      "telefono": "+57 300 012 3456"
+    },
+    {
+      "direccion": "Carrera 41 #84-85",
+      "correo": "luisfernandez@outlook.com",
+      "telefono": "+57 310 123 4567"
+    },
+    {
+      "direccion": "Avenida 42 #86-87",
+      "correo": "carolinaperez@outlook.com",
+      "telefono": "+57 320 234 5678"
+    },
+    {
+      "direccion": "Calle 43 #88-89",
+      "correo": "andreslara@outlook.com",
+      "telefono": "+57 300 345 6789"
+    },
+    {
+      "direccion": "Carrera 44 #90-91",
+      "correo": "cristinavargas@outlook.com",
+      "telefono": "+57 310 456 7890"
+    },
+    {
+      "direccion": "Avenida 45 #92-93",
+      "correo": "jorgelopez@outlook.com",
+      "telefono": "+57 320 567 8901"
+    },
+    {
+      "direccion": "Calle 46 #94-95",
+      "correo": "camilagonzalez@outlook.com",
+      "telefono": "+57 300 678 9012"
+    },
+    {
+      "direccion": "Carrera 47 #96-97",
+      "correo": "santiagorodriguez@outlook.com",
+      "telefono": "+57 310 789 0123"
+    },
+    {
+      "direccion": "Avenida 48 #98-99",
+      "correo": "danielarodriguez@outlook.com",
+      "telefono": "+57 320 890 1234"
+    },
+    {
+      "direccion": "Calle 49 #100-01",
+      "correo": "lucaslopez@outlook.com",
+      "telefono": "+57 300 901 2345"
+    },
+    {
+      "direccion": "Carrera 50 #10-103",
+      "correo": "mariafernandez@outlook.com",
+      "telefono": "+57 310 012 3456"
+    }
+]
+   
+  }

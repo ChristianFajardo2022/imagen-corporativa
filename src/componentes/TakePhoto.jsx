@@ -2,59 +2,32 @@ import React, { useState } from 'react';
 import { storage } from '../firebase'; // Asegúrate de que la ruta sea correcta
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
+import imageCompression from 'browser-image-compression';
 
 const TakePhoto = () => {
   const [imgSrc, setImgSrc] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [downloadURL, setDownloadURL] = useState(null);
 
-  const handleCapture = (event) => {
+  const handleCapture = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      resizeImage(file, 800, 600, 0.7, (resizedBlob) => {
+      try {
+        const compressedFile = await imageCompression(file, {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 800,
+          useWebWorker: true
+        });
         const reader = new FileReader();
         reader.onloadend = () => {
           setImgSrc(reader.result);
-          handleUpload(resizedBlob); // Llama a handleUpload con el archivo redimensionado
+          handleUpload(compressedFile); // Llama a handleUpload con el archivo comprimido
         };
-        reader.readAsDataURL(resizedBlob);
-      });
+        reader.readAsDataURL(compressedFile);
+      } catch (error) {
+        console.error("Error al comprimir la imagen:", error);
+      }
     }
-  };
-
-  const resizeImage = (file, maxWidth, maxHeight, quality, callback) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        let width = img.width;
-        let height = img.height;
-
-        if (width > height) {
-          if (width > maxWidth) {
-            height *= maxWidth / width;
-            width = maxWidth;
-          }
-        } else {
-          if (height > maxHeight) {
-            width *= maxHeight / height;
-            height = maxHeight;
-          }
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, width, height);
-        
-        canvas.toBlob((blob) => {
-          callback(blob);
-        }, 'image/jpeg', quality);
-      };
-      img.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
   };
 
   const handleUpload = async (file) => {

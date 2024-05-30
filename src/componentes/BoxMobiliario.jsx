@@ -4,7 +4,9 @@ export const BoxMobiliario = ({ img, title, handleClick, active }) => {
   return (
     <div
       onClick={handleClick}
-      className={`group  selectoresCaja ${active ? "" : ""} relative`}
+      className={`group  selectoresCaja ${
+        active ? "selectorActive" : ""
+      } relative`}
     >
       <span className="group-hover:text-white w-1/2 flexCenter text-[--TextoBlack]">
         {title}

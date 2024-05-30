@@ -1,5 +1,9 @@
 import React from "react";
 
-export const Button = ({ text, customStyle }) => {
-  return <button className={`${customStyle} btn`}>{text}</button>;
+export const Button = ({ text, customStyle, handleClick }) => {
+  return (
+    <button onClick={handleClick} className={`${customStyle} btn`}>
+      {text}
+    </button>
+  );
 };

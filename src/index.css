@@ -14,10 +14,10 @@
 }
 
 html {
-  @apply w-full h-screen xl:text-[0.7vw] xs:text-[3vw] sm:text-[1.5vw] lg:text-[1vw] scroll-smooth;
+  @apply xl:text-[0.7vw] xs:text-[3vw] sm:text-[1.5vw] lg:text-[1vw] scroll-smooth h-screen w-screen;
 }
 body {
-  @apply fondoDegradado m-0 p-0 box-content;
+  @apply fondoDegradado m-0 p-0 box-content h-full w-full;
 
   font-family: "Inter", sans-serif;
 }
@@ -44,11 +44,12 @@ p,
 span {
   @apply text-xl letrasContridasParrafos;
 }
-input {
+input,
+select {
   @apply letrasContridasParrafos  wBox hBox  flex items-center justify-start shadow-xl rounded-2xl py-2 px-8 effect;
 }
 .wBox {
-  @apply w-5/6 mx-auto my-6;
+  @apply w-full mx-auto my-6;
 }
 .hBox {
   @apply h-16;
@@ -76,8 +77,12 @@ input {
 .selectoresTexto {
   @apply selector wBox hBox py-2 px-8;
 }
-.selectorActive {
+.selectoresCaja.selectorActive,
+.selectoresTexto.selectorActive {
   @apply bg-[--btn-active] text-white;
+}
+.selectoresCaja.selectorActive span {
+  @apply text-white;
 }
 .selectoresCaja {
   @apply selector wBox h-48  mx-auto;

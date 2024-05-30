@@ -2,7 +2,9 @@ export const Selector = ({ title, active, handleClick }) => {
   return (
     <span
       onClick={handleClick}
-      className={`selectoresTexto ${active ? "selectorActive" : ""}`}
+      className={`selectoresTexto cursor-pointer ${
+        active ? "selectorActive" : ""
+      }`}
     >
       {title}
     </span>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Button } from "./Button";
 
 const TakePhoto = () => {
   const [imgSrc, setImgSrc] = useState(null);
@@ -16,7 +17,6 @@ const TakePhoto = () => {
 
   return (
     <div className="take-photo-container">
-      <h1 className="text-2xl font-semibold mb-4">Toma una foto</h1>
       <input
         type="file"
         accept="image/*"
@@ -24,12 +24,13 @@ const TakePhoto = () => {
         onChange={handleCapture}
         className="capture-input"
       />
-      <button
-        onClick={() => document.querySelector('.capture-input').click()}
-        className="mt-4 bg-blue-500 text-white py-2 px-4 rounded"
-      >
-        Tomar Foto
-      </button>
+
+      <Button
+        handleClick={() => document.querySelector(".capture-input").click()}
+        customStyle={`mt-4 bg-blue-500 text-white py-2 px-4 rounded`}
+        text={"Tomar Foto"}
+      />
+
       {imgSrc && (
         <div className="mt-4">
           <h2 className="text-xl">Foto tomada:</h2>

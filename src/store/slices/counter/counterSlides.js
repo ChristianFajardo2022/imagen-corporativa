@@ -3,7 +3,38 @@ import { createSlice } from "@reduxjs/toolkit";
 export const counterSlice = createSlice({
   name: "counter",
   initialState: {
-    counter: 10,
+    Pagina: 0,
+    resultado: false,
+    formData: {
+      id: "",
+      ciudad: "",
+      tipoFranquicia: "",
+      mobiliario: "",
+      counter: [
+        {
+          ancho: 1,
+          alto: 1,
+          imagen: "0",
+        },
+      ],
+      cenefa: {
+        ancho: 1,
+        alto: 1,
+        imagen: "0",
+      },
+      local: {
+        ancho: 1,
+        alto: 1,
+        imagen: "0",
+      },
+      aviso: [
+        {
+          ancho: 1,
+          alto: 1,
+          imagen: "0",
+        },
+      ],
+    },
   },
   reducers: {
     increment: (state) => {
@@ -11,13 +42,10 @@ export const counterSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      state.counter += 1;
+      state.Pagina += 1;
     },
     decrement: (state) => {
-      state.counter -= 1;
-    },
-    incrementBy: (state, action) => {
-      state.counter += action.payload;
+      state.Pagina -= 1;
     },
   },
 });

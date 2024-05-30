@@ -2,15 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-body{
-    font-family: "Inter", sans-serif;
-    margin: 0;
-    padding: 0;
-    heigth: 100%;
+:root {
+  --bg-color-one: #ccd5e2;
+  --bg-color-two: #ccd5e2;
+  --gradient: ;
 }
 
-.fondo_degradado{
-    @apply bg-gradient-to-tr from-[#CCD5E2] from-15%  to-[#F8FBFF] to-85%;
+body {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  heigth: 100%;
+}
+
+.fondo_degradado {
+  @apply bg-gradient-to-tr from-[--bg-color-one] from-15%  to-[--bg-color-two] to-85%;
 }

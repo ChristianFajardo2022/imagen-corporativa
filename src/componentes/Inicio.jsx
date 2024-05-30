@@ -3,6 +3,7 @@ import { Button } from "./Button";
 import DepartmentSelector from "./DatosColombia";
 import { useDispatch } from "react-redux";
 import { increment, setData } from "../store/slices/counter/counterSlides";
+import { getLocaleById } from "../firebase/firebaseService";
 
 export const Inicio = () => {
   const [active, setActive] = useState(false);
@@ -10,27 +11,50 @@ export const Inicio = () => {
     id: "",
     ciudad: "",
   });
+
+  const dispatch = useDispatch();
+
+  //Habilitar el boton
   useEffect(() => {
     if (formdata.id !== "" && formdata.ciudad !== "") {
       setActive(true);
     }
   }, [formdata]);
+
+  //Funcion para manejar datos de los campos
   const HandleChangeData = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formdata, [name]: value });
   };
 
-  const dispatch = useDispatch();
-
+  //Funcion para ejecutar el form y llamado a redux
   const updateField = (name, value) => {
     dispatch(setData({ key: name, value: value }));
   };
-  const handleRedux = (e) => {
+
+  const handleRedux = async (e) => {
     e.preventDefault();
-    updateField("id", formdata.id);
-    updateField("ciudad", formdata.ciudad);
-    dispatch(increment());
+
+    if (!formdata.id) {
+      alert("Por favor ingrese un número de ID");
+      return;
+    }
+
+    try {
+      const { data, error } = await getLocaleById(formdata.id);
+      if (error) {
+        throw new Error(error);
+      }
+      // Si el ID es correcto, navega al componente Seguridad con el ID como parámetro en la URL
+      updateField("id", formdata.id);
+      updateField("ciudad", formdata.ciudad);
+      dispatch(increment());
+    } catch (error) {
+      alert(error.message);
+    }
   };
+
+  const handleSubmit = async () => {};
 
   return (
     <form

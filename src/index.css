@@ -32,7 +32,7 @@ h1 {
   @apply text-7xl font-semibold text-[--titulos] letrasContridasTitulos;
 }
 h2 {
-  @apply text-6xl letrasContridasTitulos;
+  @apply text-5xl letrasContridasTitulos text-[--titulos];
 }
 .letrasContridasTitulos {
   @apply -tracking-widest;

@@ -55,7 +55,7 @@ select {
   @apply w-full mx-auto my-6;
 }
 .hBox {
-  @apply h-16;
+  @apply min-h-16;
 }
 .fondoDegradado {
   @apply bg-gradient-to-tr from-[--bg-color-one] from-15%  to-[--bg-color-two] to-85%;
@@ -79,6 +79,9 @@ select {
 }
 .selectoresTexto {
   @apply selector wBox hBox py-2 px-8;
+}
+.selectOpcions .tipoSelect__box {
+  @apply selector wBox hBox hover:bg-[--btn-ligth] hover:text-[--text-color-btn] px-0;
 }
 .selectoresTexto.tipoSelect {
   @apply justify-between;

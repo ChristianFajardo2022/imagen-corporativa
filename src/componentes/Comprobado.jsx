@@ -22,6 +22,7 @@ const Comprobado = () => {
       navBar={true}
       textBtn={resultado ? "Continuar" : "Intentar de nuevo"}
       btnTrue={true}
+      active={true}
     >
       {resultado ? (
         <div className="flex flex-col justify-center items-center h-[80vh] px-10">

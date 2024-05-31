@@ -3,7 +3,11 @@ import React, { useState } from "react";
 import { Selector } from "./Selector";
 import { Layout } from "./Layout";
 import { useDispatch } from "react-redux";
-import { increment } from "../store/slices/counter/counterSlides";
+import {
+  increment,
+  setData,
+  setPagina,
+} from "../store/slices/counter/counterSlides";
 
 const selectores = ["Agencia", "Alianza", "Corresponsal", "Punto de venta"];
 
@@ -14,10 +18,16 @@ export const TipoAgencia = () => {
   // Función para manejar el clic en un selector
   const handleClick = (selector) => {
     setActiveSelector(selector);
+    setActive(true);
+    dispatch(setData({ key: "tipoFranquicia", value: selector }));
+  };
+  const handlePagina = () => {
+    dispatch(setPagina(0));
   };
   return (
     <>
       <Layout
+        handlePagina={handlePagina}
         handleClick={() => dispatch(increment())}
         textBtn={"Continuar"}
         active={active}

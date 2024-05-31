@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Layout } from "./Layout";
 import { Selector } from "./Selector";
 import { SeleccionTipoCounter } from "./SeleccionTipoCounter";
 
 export const TiposCounter = () => {
+  const [active, setActive] = useState(false);
   return (
     <>
       <Layout
         //handleClick={() => dispatch(increment())}
         textBtn={"Continuar"}
-        //active={active}
+        active={active ? true : false}
         btnTrue={true}
       >
         <div>
@@ -20,7 +21,7 @@ export const TiposCounter = () => {
           <p className="w-1/2 mx-auto text-center">
             ¿Cuántos counter tienes en el local?
           </p>
-          <SeleccionTipoCounter />
+          <SeleccionTipoCounter setActive={setActive} />
         </div>
       </Layout>
     </>

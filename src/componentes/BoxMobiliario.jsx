@@ -11,7 +11,7 @@ export const BoxMobiliario = ({ img, title, handleClick, active }) => {
       <span className="group-hover:text-white w-1/2 flexCenter text-[--TextoBlack]">
         {title}
       </span>
-      <figure className="w-1/2 h-full flexCenter">
+      <figure className="w-1/2 h-full flexCenter p-6">
         <img className="object-contain" src={img} alt="" />
       </figure>
     </div>

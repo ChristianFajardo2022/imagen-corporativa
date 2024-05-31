@@ -54,9 +54,12 @@ export const counterSlice = createSlice({
       const { key, value } = action.payload;
       state.formData[key] = value;
     },
+    setPagina: (state, action) => {
+      state.Pagina = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { increment, resultado, decrement, setData } =
+export const { increment, resultado, decrement, setData, setPagina } =
   counterSlice.actions;

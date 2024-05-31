@@ -17,6 +17,7 @@ const mezclarOpciones = (array) => {
 
 const Seguridad = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [active, setactive] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [opciones, setOpciones] = useState([]);
   const [error, setError] = useState(null);
@@ -78,7 +79,8 @@ const Seguridad = () => {
     }
   };
 
-  const handleAnswer = (answer) => {
+  const handleAnswer = (answer, index) => {
+    setactive(index);
     setSelectedAnswers((prev) => {
       const newAnswers = [...prev];
       newAnswers[currentQuestionIndex] = answer;
@@ -86,6 +88,7 @@ const Seguridad = () => {
     });
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((current) => current + 1);
+      setactive(null);
     }
   };
 
@@ -131,8 +134,10 @@ const Seguridad = () => {
                 {opciones.map((opcion, index) => (
                   <span
                     key={index}
-                    onClick={() => handleAnswer(opcion)}
-                    className="selectoresTexto"
+                    onClick={() => handleAnswer(opcion, index)}
+                    className={`selectoresTexto ${
+                      active == index ? "selectorActive" : ""
+                    }`}
                   >
                     {opcion}
                   </span>

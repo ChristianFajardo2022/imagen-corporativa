@@ -2,7 +2,11 @@ import { useState } from "react";
 import { BoxMobiliario } from "./BoxMobiliario";
 import { Layout } from "./Layout";
 import { useDispatch } from "react-redux";
-import { increment } from "../store/slices/counter/counterSlides";
+import {
+  increment,
+  setData,
+  setPagina,
+} from "../store/slices/counter/counterSlides";
 
 const selectorBox = [
   {
@@ -17,11 +21,20 @@ const selectorBox = [
 
 export const TiposMobiliario = () => {
   const [activeSelector, setActiveSelector] = useState(null);
-  const [active, setActive] = useState(null);
+  const [active, setActive] = useState(false);
   const dispatch = useDispatch();
+
   // Función para manejar el clic en un selector
   const handleClick = (selector) => {
     setActiveSelector(selector);
+    setActive(true);
+    dispatch(setData({ key: "mobiliario", value: selector }));
+  };
+
+  //Enviar a Aviso
+
+  const HandleGoAviso = () => {
+    //dispatch(setPagina(0));
   };
   return (
     <>
@@ -41,7 +54,10 @@ export const TiposMobiliario = () => {
               {...item}
             />
           ))}
-          <p className="mt-6 cursor-pointer underline font-light w-full text-center">
+          <p
+            onClick={HandleGoAviso}
+            className="mt-6 cursor-pointer underline font-light w-full text-center"
+          >
             Solo cuento con aviso
           </p>
         </div>

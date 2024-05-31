@@ -9,10 +9,11 @@ export const Layout = ({
   btnTrue,
   styles,
   navBar,
+  handlePagina,
 }) => {
   return (
     <div className="fondo_degradado w-full flex flex-col justify-between h-full relative">
-      {navBar ? <></> : <Navbar />}
+      {navBar ? <></> : <Navbar handlePagina={handlePagina} />}
       {children}
 
       {btnTrue ? (

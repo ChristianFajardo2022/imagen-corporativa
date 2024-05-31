@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const counterSlice = createSlice({
   name: "counter",
   initialState: {
-    Pagina: 0,
+    Pagina: 5,
     resultado: false,
     loading: false,
     formData: {
@@ -11,6 +11,7 @@ export const counterSlice = createSlice({
       ciudad: "",
       tipoFranquicia: "",
       mobiliario: "",
+      NumCounters: 0,
       counter: [
         {
           ancho: 1,
@@ -57,6 +58,9 @@ export const counterSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    setNumeCounter: (state, action) => {
+      state.formData.NumCounters = action.payload;
+    },
   },
 });
 
@@ -69,6 +73,7 @@ export const {
   setData,
   setLoading,
   setPagina,
+  setNumeCounter,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

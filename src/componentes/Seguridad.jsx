@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-
 import { getLocaleById } from "../firebase/firebaseService";
 import datosFalsos from "./data/datosfalsos.json"; // Importa los datos falsos
 import { useDispatch, useSelector } from "react-redux";
-import { resultado, increment } from "../store/slices/counter/counterSlides";
-import { Button } from "./Button";
+import { resultado, increment, setLoading } from "../store/slices/counter/counterSlides";
 import { Layout } from "./Layout";
+import LoadingSpinner from "./LoadingSpinner";
 
 const mezclarOpciones = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -24,6 +23,7 @@ const Seguridad = () => {
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [correctAnswers, setCorrectAnswers] = useState([]);
   const { formData } = useSelector((state) => state.counter);
+  const loading = useSelector((state) => state.counter.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,6 +40,7 @@ const Seguridad = () => {
   }, [currentQuestionIndex, questions]);
 
   const cargarRespuestaCorrecta = async (index) => {
+    dispatch(setLoading(true));
     try {
       const { data, error } = await getLocaleById(formData.id);
       if (error) {
@@ -76,6 +77,8 @@ const Seguridad = () => {
       setCorrectAnswers((prev) => [...prev, respuestaCorrecta]);
     } catch (error) {
       setError(error.message);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -93,14 +96,14 @@ const Seguridad = () => {
   };
 
   const handleContinue = () => {
-    const isCorrect = selectedAnswers.every(
-      (answer, index) => answer === correctAnswers[index]
-    );
+    const isCorrect = selectedAnswers.every((answer, index) => answer === correctAnswers[index]);
 
     if (isCorrect) {
       dispatch(resultado());
+      dispatch(increment()); // Incrementa la página para navegar a Comprobado
+    } else {
+      dispatch(increment()); // Incrementa la página para navegar a Comprobado
     }
-    dispatch(increment()); // Incrementa la página para navegar a Comprobado
   };
 
   if (error) {
@@ -124,8 +127,13 @@ const Seguridad = () => {
         </div>
         <h2 className="mt-10 mb-6">Queremos estar seguros de que eres tú</h2>
 
-        {questions.length > 0 && currentQuestionIndex < questions.length && (
+        {loading ? (
+          <LoadingSpinner />
+        
+         
+        ) : (
           <>
+             {questions.length > 0 && currentQuestionIndex < questions.length && (
             <div className="">
               <p className="text-[#7D7E79]">
                 {questions[currentQuestionIndex]}
@@ -144,8 +152,7 @@ const Seguridad = () => {
                 ))}
               </div>
             </div>
-
-            <div className="px-10 absolute bottom-12 w-full"></div>
+          )} 
           </>
         )}
       </div>

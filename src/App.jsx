@@ -8,15 +8,19 @@ import { TiposMobiliario } from "./componentes/TiposMobiliario";
 import { TipoAgencia } from "./componentes/TipoAgencia";
 import { Inicio } from "./componentes/Inicio";
 import Seguridad from "./componentes/Seguridad";
+import { TiposCounter } from "./componentes/TiposCounter";
 
 function App() {
   const { Pagina } = useSelector((state) => state.counter);
 
   return (
-    <div className="max-w-[30rem] m-auto flexCenter h-full lg:p-10 xs:p-6">
+    <div className="max-w-[30rem] m-auto flexCenter h-full lg:px-10 xs:px-6 lg:py-16 xs:p-y6">
       {Pagina == 0 && <Inicio />}
       {Pagina == 1 && <Seguridad />}
-      {Pagina == 2 && <TiposMobiliario />}
+      {Pagina == 2 && <TipoAgencia />}
+      {Pagina == 3 && <TiposMobiliario />}
+      {Pagina == 4 && <TiposCounter />}
+
       {/* <TipoAgencia />
       <TiposMobiliario />
       <Button customStyle={`  `} text={"Boton"} />

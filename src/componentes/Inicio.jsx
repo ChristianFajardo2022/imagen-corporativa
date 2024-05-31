@@ -54,8 +54,6 @@ export const Inicio = () => {
     }
   };
 
-  const handleSubmit = async () => {};
-
   return (
     <form
       onSubmit={handleRedux}
@@ -64,7 +62,7 @@ export const Inicio = () => {
       <div></div>
       <div className="w-full">
         <h1>Hola,</h1>
-        <p className="py-6">
+        <p className="pt-3">
           Para continuar, escribe el ID de tu punto Inter Rapidísimo
         </p>
         <input

@@ -1,8 +1,7 @@
-import React from "react";
 import { useDispatch } from "react-redux";
 import { decrement } from "../store/slices/counter/counterSlides";
 
-const nav = () => {
+export const Navbar = () => {
   const dispatch = useDispatch();
 
   return (
@@ -22,5 +21,3 @@ const nav = () => {
     </div>
   );
 };
-
-export default nav;

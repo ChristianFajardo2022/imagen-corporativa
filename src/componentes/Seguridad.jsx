@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Nav from "./Nav";
+
 import { getLocaleById } from "../firebase/firebaseService";
 import datosFalsos from "./data/datosfalsos.json"; // Importa los datos falsos
 import { useDispatch, useSelector } from "react-redux";
-import { resultado } from "../store/slices/counter/counterSlides";
+import { increment, resultado } from "../store/slices/counter/counterSlides";
 import { Button } from "./Button";
+import { Navbar } from "./Navbar";
+import { Layout } from "./Layout";
 
 const mezclarOpciones = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -84,44 +86,44 @@ const Seguridad = () => {
   }
 
   return (
-    <div className="fondo_degradado flex flex-col justify-between h-full relative">
-      <Nav />
-      <div>
-        <div className="w-20 mx-auto flex justify-center">
-          <img src="/user.svg" alt="Logo" className="" />
-        </div>
-        <h2 className="mt-10 mb-6">Queremos estar seguros de que eres tú</h2>
+    <>
+      <Layout
+        handleClick={() => dispatch(increment())}
+        textBtn={"Continuar"}
+        active={active}
+        btnTrue={true}
+      >
+        <div>
+          <div className="w-20 mx-auto flex justify-center">
+            <img src="/user.svg" alt="Logo" className="" />
+          </div>
+          <h2 className="mt-10 mb-6">Queremos estar seguros de que eres tú</h2>
 
-        {questions.length > 0 && currentQuestionIndex < questions.length && (
-          <>
-            <div className="">
-              <p className="text-[#7D7E79]">
-                {questions[currentQuestionIndex]}
-              </p>
-              <div className="flex flex-col">
-                {opciones.map((opcion, index) => (
-                  <span
-                    key={index}
-                    onClick={handleAnswer}
-                    className="selectoresTexto"
-                  >
-                    {opcion}
-                  </span>
-                ))}
+          {questions.length > 0 && currentQuestionIndex < questions.length && (
+            <>
+              <div className="">
+                <p className="text-[#7D7E79]">
+                  {questions[currentQuestionIndex]}
+                </p>
+                <div className="flex flex-col">
+                  {opciones.map((opcion, index) => (
+                    <span
+                      key={index}
+                      onClick={handleAnswer}
+                      className="selectoresTexto"
+                    >
+                      {opcion}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            <div className="px-10 absolute bottom-12 w-full"></div>
-          </>
-        )}
-      </div>
-
-      <Button
-        handleClick={handleAnswer}
-        text={"Continuar"}
-        customStyle={`${active ? "btnActive" : "pointer-events-none"}`}
-      />
-    </div>
+              <div className="px-10 absolute bottom-12 w-full"></div>
+            </>
+          )}
+        </div>
+      </Layout>
+    </>
   );
 };
 

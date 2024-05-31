@@ -4,7 +4,7 @@ export const BoxMobiliario = ({ img, title, handleClick, active }) => {
   return (
     <div
       onClick={handleClick}
-      className={`group  selectoresCaja ${
+      className={`group cursor-pointer selectoresCaja ${
         active ? "selectorActive" : ""
       } relative`}
     >

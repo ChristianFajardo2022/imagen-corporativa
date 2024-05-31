@@ -34,6 +34,9 @@ h1 {
 h2 {
   @apply text-5xl letrasContridasTitulos text-[--titulos];
 }
+h3 {
+  @apply text-3xl  text-[--TextoBlack];
+}
 .letrasContridasTitulos {
   @apply -tracking-widest;
 }
@@ -77,9 +80,15 @@ select {
 .selectoresTexto {
   @apply selector wBox hBox py-2 px-8;
 }
+.selectoresTexto.tipoSelect {
+  @apply justify-between;
+}
 .selectoresCaja.selectorActive,
 .selectoresTexto.selectorActive {
   @apply bg-[--btn-active] text-white;
+}
+.svgSelector {
+  @apply fill-black group-hover:fill-white effect;
 }
 .selectoresCaja.selectorActive span {
   @apply text-white;

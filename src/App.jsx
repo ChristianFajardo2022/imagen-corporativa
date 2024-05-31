@@ -9,6 +9,7 @@ import { TipoAgencia } from "./componentes/TipoAgencia";
 import { Inicio } from "./componentes/Inicio";
 import Seguridad from "./componentes/Seguridad";
 import { TiposCounter } from "./componentes/TiposCounter";
+import Comprobado from "./componentes/Comprobado";
 
 function App() {
   const { Pagina } = useSelector((state) => state.counter);
@@ -17,9 +18,10 @@ function App() {
     <div className="max-w-[30rem] m-auto flexCenter h-full lg:px-10 xs:px-6 lg:py-16 xs:p-y6">
       {Pagina == 0 && <Inicio />}
       {Pagina == 1 && <Seguridad />}
-      {Pagina == 2 && <TipoAgencia />}
-      {Pagina == 3 && <TiposMobiliario />}
-      {Pagina == 4 && <TiposCounter />}
+      {Pagina == 2 && <Comprobado />}
+      {Pagina == 3 && <TipoAgencia />}
+      {Pagina == 4 && <TiposMobiliario />}
+      {Pagina == 5 && <TiposCounter />}
 
       {/* <TipoAgencia />
       <TiposMobiliario />

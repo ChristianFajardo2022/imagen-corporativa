@@ -3,9 +3,8 @@ import React, { useState, useEffect } from "react";
 import { getLocaleById } from "../firebase/firebaseService";
 import datosFalsos from "./data/datosfalsos.json"; // Importa los datos falsos
 import { useDispatch, useSelector } from "react-redux";
-import { increment, resultado } from "../store/slices/counter/counterSlides";
+import { resultado, increment } from "../store/slices/counter/counterSlides";
 import { Button } from "./Button";
-import { Navbar } from "./Navbar";
 import { Layout } from "./Layout";
 
 const mezclarOpciones = (array) => {
@@ -21,12 +20,10 @@ const Seguridad = () => {
   const [questions, setQuestions] = useState([]);
   const [opciones, setOpciones] = useState([]);
   const [error, setError] = useState(null);
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
+  const [correctAnswers, setCorrectAnswers] = useState([]);
   const { formData } = useSelector((state) => state.counter);
-  const [active, setActive] = useState(false);
   const dispatch = useDispatch();
-
-  //Funcion que ejecuta el resultado a TRUE
-  // dispatch(resultado());
 
   useEffect(() => {
     setQuestions([
@@ -49,18 +46,21 @@ const Seguridad = () => {
       }
 
       let opcionesAleatorias = [];
+      let respuestaCorrecta = "";
       switch (index) {
         case 0:
+          respuestaCorrecta = data.email;
           opcionesAleatorias = mezclarOpciones([
-            data.email, // Respuesta correcta
+            respuestaCorrecta, // Respuesta correcta
             ...datosFalsos.datosAleatorios
               .slice(0, 2)
               .map((item) => item.correo), // Dos datos falsos de emails
           ]);
           break;
         case 1:
+          respuestaCorrecta = data.direccion;
           opcionesAleatorias = mezclarOpciones([
-            data.direccion, // Respuesta correcta
+            respuestaCorrecta, // Respuesta correcta
             ...datosFalsos.datosAleatorios
               .slice(0, 2)
               .map((item) => item.direccion), // Dos datos falsos de direcciones
@@ -72,13 +72,32 @@ const Seguridad = () => {
       }
 
       setOpciones(opcionesAleatorias);
+      setCorrectAnswers((prev) => [...prev, respuestaCorrecta]);
     } catch (error) {
       setError(error.message);
     }
   };
 
-  const handleAnswer = () => {
-    setCurrentQuestionIndex((current) => current + 1);
+  const handleAnswer = (answer) => {
+    setSelectedAnswers((prev) => {
+      const newAnswers = [...prev];
+      newAnswers[currentQuestionIndex] = answer;
+      return newAnswers;
+    });
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex((current) => current + 1);
+    }
+  };
+
+  const handleContinue = () => {
+    const isCorrect = selectedAnswers.every(
+      (answer, index) => answer === correctAnswers[index]
+    );
+
+    if (isCorrect) {
+      dispatch(resultado());
+    }
+    dispatch(increment()); // Incrementa la página para navegar a Comprobado
   };
 
   if (error) {
@@ -86,44 +105,46 @@ const Seguridad = () => {
   }
 
   return (
-    <>
-      <Layout
-        handleClick={() => dispatch(increment())}
-        textBtn={"Continuar"}
-        active={active}
-        btnTrue={true}
-      >
-        <div>
-          <div className="w-20 mx-auto flex justify-center">
-            <img src="/user.svg" alt="Logo" className="" />
-          </div>
-          <h2 className="mt-10 mb-6">Queremos estar seguros de que eres tú</h2>
-
-          {questions.length > 0 && currentQuestionIndex < questions.length && (
-            <>
-              <div className="">
-                <p className="text-[#7D7E79]">
-                  {questions[currentQuestionIndex]}
-                </p>
-                <div className="flex flex-col">
-                  {opciones.map((opcion, index) => (
-                    <span
-                      key={index}
-                      onClick={handleAnswer}
-                      className="selectoresTexto"
-                    >
-                      {opcion}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="px-10 absolute bottom-12 w-full"></div>
-            </>
-          )}
+    <Layout
+      handleClick={handleContinue}
+      textBtn={"Continuar"}
+      btnTrue={true}
+      styles={`${
+        selectedAnswers.length === questions.length
+          ? "btnActive"
+          : "pointer-events-none"
+      }`}
+    >
+      <div>
+        <div className="w-20 mx-auto flex justify-center">
+          <img src="/user.svg" alt="Logo" className="" />
         </div>
-      </Layout>
-    </>
+        <h2 className="mt-10 mb-6">Queremos estar seguros de que eres tú</h2>
+
+        {questions.length > 0 && currentQuestionIndex < questions.length && (
+          <>
+            <div className="">
+              <p className="text-[#7D7E79]">
+                {questions[currentQuestionIndex]}
+              </p>
+              <div className="flex flex-col">
+                {opciones.map((opcion, index) => (
+                  <span
+                    key={index}
+                    onClick={() => handleAnswer(opcion)}
+                    className="selectoresTexto"
+                  >
+                    {opcion}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="px-10 absolute bottom-12 w-full"></div>
+          </>
+        )}
+      </div>
+    </Layout>
   );
 };
 

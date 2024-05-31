@@ -5,6 +5,7 @@ export const counterSlice = createSlice({
   initialState: {
     Pagina: 0,
     resultado: false,
+    loading: false,
     formData: {
       id: "",
       ciudad: "",
@@ -38,10 +39,6 @@ export const counterSlice = createSlice({
   },
   reducers: {
     increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
       state.Pagina += 1;
     },
     decrement: (state) => {
@@ -54,9 +51,12 @@ export const counterSlice = createSlice({
       const { key, value } = action.payload;
       state.formData[key] = value;
     },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { increment, resultado, decrement, setData } =
-  counterSlice.actions;
+export const { increment, resultado, decrement, setData, setLoading } = counterSlice.actions;
+
+export default counterSlice.reducer;

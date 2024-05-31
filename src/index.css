@@ -99,6 +99,12 @@ select {
 .flexCenter {
   @apply flex justify-center items-center;
 }
+.loading-overlay {
+  @apply  w-full h-[23rem] flex justify-center items-center -z-50;
+}
+.loading-spinner {
+  @apply border-solid border-t-4 border-[#2E3136] rounded-full w-[120px] h-[120px] animate-spin;
+}
 
 /*estilos para ocultar decremento nativa de inputs tipo numero*/
 input[type="number"]::-webkit-inner-spin-button,

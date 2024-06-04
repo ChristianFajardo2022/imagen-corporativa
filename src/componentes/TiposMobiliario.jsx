@@ -10,11 +10,11 @@ import {
 
 const selectorBox = [
   {
-    title: "Antiguo",
+    title: "antiguo",
     img: "/antiguo.webp",
   },
   {
-    title: "Nuevo",
+    title: "nuevo",
     img: "/nuevo.webp",
   },
 ];

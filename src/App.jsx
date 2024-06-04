@@ -22,6 +22,7 @@ function App() {
       {Pagina == 3 && <TipoAgencia />}
       {Pagina == 4 && <TiposMobiliario />}
       {Pagina == 5 && <TiposCounter />}
+      
 
       {/* <TipoAgencia />
       <TiposMobiliario />

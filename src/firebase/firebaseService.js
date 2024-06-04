@@ -15,4 +15,26 @@ const getLocaleById = async (id) => {
   }
 };
 
-export { getLocaleById };
+// Función para actualizar datos en un documento específico
+const updateLocaleData = async (id, key, value) => {
+  try {
+    const localeRef = doc(db, "locales", id);
+    await updateDoc(localeRef, { [key]: value });
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+};
+
+// Función para añadir o fusionar datos en un documento específico
+const addLocaleData = async (id, data) => {
+  try {
+    const localeRef = doc(db, "locales", id);
+    await setDoc(localeRef, data, { merge: true });
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+};
+
+export { getLocaleById, updateLocaleData, addLocaleData };

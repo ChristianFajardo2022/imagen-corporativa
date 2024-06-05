@@ -54,7 +54,7 @@ const Administrador = () => {
             <th className="py-2 px-4 border-b">Dirección</th>
             <th className="py-2 px-4 border-b">Teléfono</th>
             <th className="py-2 px-4 border-b">Email</th>
-            <th className="py-2 px-4 border-b">tipo de franquicia</th>
+            
             {/* Añade más encabezados según los campos de datos */}
           </tr>
         </thead>

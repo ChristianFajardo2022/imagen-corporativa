@@ -25,7 +25,7 @@ const Comprobado = () => {
       active={true}
     >
       {resultado ? (
-        <div className="flex flex-col justify-center items-center h-[80vh] px-10">
+        <div className="flex flex-col justify-center items-center h-[80vh] lg:px-10 xs:px-6 lg:py-16 xs:py-6">
           <figure className="w-14 h-14">
             <img className="" src="/chuloaprobado.svg" alt="Aprobado" />
           </figure>
@@ -35,9 +35,13 @@ const Comprobado = () => {
       ) : (
         <div className="flex flex-col justify-center items-center h-[80vh] px-10">
           <figure>
-          <img className="w-14" src="/chulodesaprobado.svg" alt="No Aprobado" />  
+            <img
+              className="w-14"
+              src="/chulodesaprobado.svg"
+              alt="No Aprobado"
+            />
           </figure>
-          
+
           <h1 className="text-4xl mt-4">Datos equivocados</h1>
         </div>
       )}

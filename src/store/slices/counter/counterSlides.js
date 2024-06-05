@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const counterSlice = createSlice({
   name: "counter",
   initialState: {
-    Pagina: 0,
+    Pagina: 4,
     resultado: false,
     loading: false,
     formData: {

@@ -13,9 +13,9 @@ import Comprobado from "./componentes/Comprobado";
 
 function App() {
   const { Pagina } = useSelector((state) => state.counter);
-
+  //lg:px-10 xs:px-6 lg:py-16 xs:p-y6
   return (
-    <div className="max-w-[30rem] m-auto flexCenter h-full lg:px-10 xs:px-6 lg:py-16 xs:p-y6">
+    <div className="max-w-[30rem] m-auto flexCenter h-full">
       {Pagina == 0 && <Inicio />}
       {Pagina == 1 && <Seguridad />}
       {Pagina == 2 && <Comprobado />}

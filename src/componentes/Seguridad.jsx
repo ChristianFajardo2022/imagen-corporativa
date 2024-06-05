@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { getLocaleById } from "../firebase/firebaseService";
 import datosFalsos from "./data/datosfalsos.json"; // Importa los datos falsos
 import { useDispatch, useSelector } from "react-redux";
-import { resultado, increment, setLoading } from "../store/slices/counter/counterSlides";
+import {
+  resultado,
+  increment,
+  setLoading,
+} from "../store/slices/counter/counterSlides";
 import { Layout } from "./Layout";
 import LoadingSpinner from "./LoadingSpinner";
 
@@ -96,7 +100,9 @@ const Seguridad = () => {
   };
 
   const handleContinue = () => {
-    const isCorrect = selectedAnswers.every((answer, index) => answer === correctAnswers[index]);
+    const isCorrect = selectedAnswers.every(
+      (answer, index) => answer === correctAnswers[index]
+    );
 
     if (isCorrect) {
       dispatch(resultado());
@@ -121,7 +127,7 @@ const Seguridad = () => {
           : "pointer-events-none"
       }`}
     >
-      <div>
+      <div className="lg:px-10 xs:px-6 lg:pb-16 xs:pb-6">
         <div className="w-20 mx-auto flex justify-center">
           <img src="/user.svg" alt="Logo" className="" />
         </div>
@@ -129,30 +135,29 @@ const Seguridad = () => {
 
         {loading ? (
           <LoadingSpinner />
-        
-         
         ) : (
           <>
-             {questions.length > 0 && currentQuestionIndex < questions.length && (
-            <div className="">
-              <p className="text-[#7D7E79]">
-                {questions[currentQuestionIndex]}
-              </p>
-              <div className="flex flex-col">
-                {opciones.map((opcion, index) => (
-                  <span
-                    key={index}
-                    onClick={() => handleAnswer(opcion, index)}
-                    className={`selectoresTexto ${
-                      active == index ? "selectorActive" : ""
-                    }`}
-                  >
-                    {opcion}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )} 
+            {questions.length > 0 &&
+              currentQuestionIndex < questions.length && (
+                <div className="">
+                  <p className="text-[#7D7E79]">
+                    {questions[currentQuestionIndex]}
+                  </p>
+                  <div className="flex flex-col">
+                    {opciones.map((opcion, index) => (
+                      <span
+                        key={index}
+                        onClick={() => handleAnswer(opcion, index)}
+                        className={`selectoresTexto ${
+                          active == index ? "selectorActive" : ""
+                        }`}
+                      >
+                        {opcion}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
           </>
         )}
       </div>

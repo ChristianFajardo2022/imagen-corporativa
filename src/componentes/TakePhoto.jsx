@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Layout } from "./Layout";
 import { Selector } from "./Selector";
 
-const TakePhoto = () => {
+const TakePhoto = ({ takephoto }) => {
   const [imgSrc, setImgSrc] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [downloadURL, setDownloadURL] = useState(null);
@@ -44,15 +44,14 @@ const TakePhoto = () => {
   };
 
   return (
-    
-<>
-
-  <Selector
-  title={"Subir foto" }
-  icon={true}
-  handleClick={() => document.querySelector(".capture-input").click()}
-  customStyle={"tipoSelect"}
-  />
+    <>
+      <Selector
+        takephoto={takephoto}
+        title={"Subir foto"}
+        icon={true}
+        handleClick={() => document.querySelector(".capture-input").click()}
+        customStyle={"tipoSelect"}
+      />
       <input
         type="file"
         accept="image/*"
@@ -60,16 +59,9 @@ const TakePhoto = () => {
         onChange={handleCapture}
         className="capture-input hidden"
       />
-      
-     
-        
-        {/* <img className="w-auto ml-4" src="./mas.svg"/> */}
-      
-      
-        </>
-    
-    
-    
+
+      {/* <img className="w-auto ml-4" src="./mas.svg"/> */}
+    </>
   );
 };
 

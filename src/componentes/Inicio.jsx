@@ -57,7 +57,7 @@ export const Inicio = () => {
   return (
     <form
       onSubmit={handleRedux}
-      className="flex flex-col justify-between h-full"
+      className="flex flex-col justify-between h-full lg:px-10 xs:px-6 lg:py-16 xs:py-6"
     >
       <div></div>
       <div className="w-full">

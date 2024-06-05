@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "./Layout";
 import { Selector } from "./Selector";
 import { SeleccionTipoCounter } from "./SeleccionTipoCounter";
 import { useDispatch, useSelector } from "react-redux";
-import { increment } from "../store/slices/counter/counterSlides";
+import { decrement, increment } from "../store/slices/counter/counterSlides";
 import { SlideMedidas } from "./SlideMedidas";
 
 const TipodeCounter = [
   {
     antiguo: {
       imagenes: {
-        counter: "/antiguo.webp",
-        local: "/localAntiguo.webp",
-        aviso: "/aviso.webp",
+        counter: "/antiguo",
+        local: "/localAntiguo",
+        aviso: "/aviso",
       },
       counter: [{}],
       local: {},
@@ -38,51 +38,78 @@ const opcionesMobiliario = ["counter", "cenefa", "local", "aviso"];
 
 export const TiposCounter = () => {
   const { formData, Pagina } = useSelector((state) => state.counter);
+  const [medidaNum, setMedidaNum] = useState(null);
   const [nuMobiliario, setNuMobiliario] = useState(0);
   const NumCounter = formData.NumCounters;
-  const tipoMobiliario = formData.mobiliario;
+  const mobiliario = formData.mobiliario;
   const dispatch = useDispatch();
 
+  //Filtramos para ubicar el tipo de mobiliario y sus propiedades
   const TipoMobiliario = TipodeCounter.filter((obj) =>
-    obj.hasOwnProperty(tipoMobiliario)
-  ).map((obj) => obj[tipoMobiliario])[0];
+    obj.hasOwnProperty(mobiliario)
+  ).map((obj) => obj[mobiliario])[0];
 
-  const imagen = TipoMobiliario.imagenes[opcionesMobiliario[nuMobiliario]];
+  const [arryMobiliario, setArryMobiliario] = useState([]);
 
-  if (TipoMobiliario.hasOwnProperty(opcionesMobiliario[nuMobiliario])) {
-    console.log(
-      `${opcionesMobiliario[nuMobiliario]}:`,
-      TipoMobiliario[opcionesMobiliario[nuMobiliario]]
-    );
-  } else {
-    console.log(
-      `La propiedad '${opcionesMobiliario[nuMobiliario]}' no existe en el objeto 'antiguo'.`
-    );
+  useEffect(() => {
+    if (TipoMobiliario) {
+      const opcionesFiltradas = opcionesMobiliario.filter((opcion) =>
+        TipoMobiliario.hasOwnProperty(opcion)
+      );
+      setArryMobiliario(opcionesFiltradas);
+    }
+  }, [TipoMobiliario]);
+
+  // Lógica para obtener la imagen
+  let imagen = null;
+  if (TipoMobiliario) {
+    imagen = TipoMobiliario.imagenes[arryMobiliario[nuMobiliario]];
   }
 
+  console.log(arryMobiliario);
   const [active, setActive] = useState(false);
 
-  const handleClick = () => {
+  //TODO Funcion que avanza a redux
+  /* const handleClick = () => {
     dispatch(increment());
     setActive(false);
+    setMedidaNum(0);
+  }; */
+  const handleClick = () => {
+    // Si nuMobiliario es el último índice, vuelve a 0, de lo contrario, incrementa nuMobiliario
+    setNuMobiliario(
+      nuMobiliario === arryMobiliario.length - 1 ? 0 : nuMobiliario + 1
+    );
   };
+
+  const handlePagina = () => {
+    dispatch(decrement());
+    setMedidaNum(null);
+  };
+
   return (
     <>
       <Layout
+        handlePagina={handlePagina}
         handleClick={handleClick}
         textBtn={"Continuar"}
         active={active ? true : false}
         btnTrue={true}
       >
         <div>
-          <h3 className="w-full text-center">
-            {opcionesMobiliario[nuMobiliario]}
-          </h3>
+          <h3 className="w-full text-center">{arryMobiliario[nuMobiliario]}</h3>
 
-          <figure className="w-full my-16">
-            <img src={imagen} alt="" />
+          <figure className="w-full my-16 lg:px-10 xs:px-6">
+            <img
+              src={`${
+                medidaNum === null || medidaNum === 2
+                  ? imagen
+                  : imagen + medidaNum
+              }.webp`}
+              alt=""
+            />
           </figure>
-          <div className="min-h-80">
+          <div className="min-h-80 h-1 w-full xs:overflow-x-scroll lg:overflow-hidden">
             {Pagina == 5 && (
               <>
                 <p className="w-1/2 mx-auto text-center">
@@ -96,7 +123,7 @@ export const TiposCounter = () => {
             )}
             {Pagina == 6 && (
               <>
-                <SlideMedidas />
+                <SlideMedidas setMedidaNum={setMedidaNum} />
               </>
             )}
           </div>

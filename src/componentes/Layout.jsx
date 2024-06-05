@@ -12,16 +12,19 @@ export const Layout = ({
   handlePagina,
 }) => {
   return (
-    <div className="fondo_degradado w-full flex flex-col justify-between h-full relative">
+    <div className="layout fondo_degradado w-full flex flex-col justify-between h-full relative">
       {navBar ? <></> : <Navbar handlePagina={handlePagina} />}
+
       {children}
 
       {btnTrue ? (
-        <Button
-          handleClick={handleClick}
-          text={textBtn}
-          customStyle={`${styles} ${active ? "btnActive" : " "}`}
-        />
+        <div className="lg:px-10 xs:px-6 lg:pb-16 xs:pb-6">
+          <Button
+            handleClick={handleClick}
+            text={textBtn}
+            customStyle={`${styles} ${active ? "btnActive" : " "}`}
+          />
+        </div>
       ) : (
         <div></div>
       )}

@@ -21,7 +21,7 @@ export const SeleccionTipoCounter = ({ setActive, NumCounter }) => {
   };
 
   return (
-    <div className="selectOpcions relative">
+    <div className="selectOpcions relative lg:px-10 xs:px-6">
       <Selector
         handleClick={() => setOpen(open ? false : true)}
         customStyle={`tipoSelect`}

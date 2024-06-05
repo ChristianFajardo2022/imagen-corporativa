@@ -44,8 +44,10 @@ export const TiposMobiliario = () => {
         active={active}
         btnTrue={true}
       >
-        <h2 className="-tracking-wider">¿Qué tipo de mobiliario tienes?</h2>
-        <div className="flex flex-col">
+        <h2 className="-tracking-wider lg:px-10 xs:px-6">
+          ¿Qué tipo de mobiliario tienes?
+        </h2>
+        <div className="flex flex-col lg:px-10 xs:px-6">
           {selectorBox.map((item) => (
             <BoxMobiliario
               handleClick={() => handleClick(item.title)}

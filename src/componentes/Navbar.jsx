@@ -6,7 +6,7 @@ export const Navbar = ({ handlePagina }) => {
 
   return (
     <div>
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex items-center justify-between lg:px-10 xs:px-6 lg:pt-16 xs:pt-6">
         <figure
           onClick={() =>
             handlePagina ? handlePagina() : dispatch(decrement())

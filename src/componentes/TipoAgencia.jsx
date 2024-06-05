@@ -33,8 +33,10 @@ export const TipoAgencia = () => {
         active={active}
         btnTrue={true}
       >
-        <h2 className="-tracking-wider">¿Qué tipo de mobiliario tienes?</h2>
-        <div className="flex flex-col">
+        <h2 className="-tracking-wider lg:px-10 xs:px-6 ">
+          ¿Qué tipo de mobiliario tienes?
+        </h2>
+        <div className="flex flex-col lg:px-10 xs:px-6 ">
           {selectores.map((selector) => (
             <Selector
               key={selector}

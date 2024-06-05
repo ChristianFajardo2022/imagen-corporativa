@@ -20,7 +20,7 @@ const mezclarOpciones = (array) => {
 
 const Seguridad = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [active, setactive] = useState(null);
+  const [active, setActive] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [opciones, setOpciones] = useState([]);
   const [error, setError] = useState(null);
@@ -78,7 +78,11 @@ const Seguridad = () => {
       }
 
       setOpciones(opcionesAleatorias);
-      setCorrectAnswers((prev) => [...prev, respuestaCorrecta]);
+      setCorrectAnswers((prev) => {
+        const newCorrectAnswers = [...prev];
+        newCorrectAnswers[index] = respuestaCorrecta;
+        return newCorrectAnswers;
+      });
     } catch (error) {
       setError(error.message);
     } finally {
@@ -87,7 +91,7 @@ const Seguridad = () => {
   };
 
   const handleAnswer = (answer, index) => {
-    setactive(index);
+    setActive(index);
     setSelectedAnswers((prev) => {
       const newAnswers = [...prev];
       newAnswers[currentQuestionIndex] = answer;
@@ -95,7 +99,7 @@ const Seguridad = () => {
     });
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((current) => current + 1);
-      setactive(null);
+      setActive(null);
     }
   };
 
@@ -106,10 +110,8 @@ const Seguridad = () => {
 
     if (isCorrect) {
       dispatch(resultado());
-      dispatch(increment()); // Incrementa la página para navegar a Comprobado
-    } else {
-      dispatch(increment()); // Incrementa la página para navegar a Comprobado
     }
+    dispatch(increment()); // Incrementa la página para navegar a Comprobado
   };
 
   if (error) {

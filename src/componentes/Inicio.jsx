@@ -3,7 +3,8 @@ import { Button } from "./Button";
 import DepartmentSelector from "./DatosColombia";
 import { useDispatch } from "react-redux";
 import { increment, setData } from "../store/slices/counter/counterSlides";
-import { getLocaleById } from "../firebase/firebaseService";
+import { getLocaleById, addLocaleData } from "../firebase/firebaseService";
+
 
 export const Inicio = () => {
   const [active, setActive] = useState(false);
@@ -16,9 +17,7 @@ export const Inicio = () => {
 
   //Habilitar el boton
   useEffect(() => {
-    if (formdata.id !== "" && formdata.ciudad !== "") {
-      setActive(true);
-    }
+    setActive(formdata.id !== "" && formdata.ciudad !== "");
   }, [formdata]);
 
   //Funcion para manejar datos de los campos
@@ -29,7 +28,7 @@ export const Inicio = () => {
 
   //Funcion para ejecutar el form y llamado a redux
   const updateField = (name, value) => {
-    dispatch(setData({ key: name, value: value }));
+    dispatch(setData({ key: name, value }));
   };
 
   const handleRedux = async (e) => {
@@ -45,10 +44,17 @@ export const Inicio = () => {
       if (error) {
         throw new Error(error);
       }
+
+     
+
+
       // Si el ID es correcto, navega al componente Seguridad con el ID como parámetro en la URL
       updateField("id", formdata.id);
       updateField("ciudad", formdata.ciudad);
       dispatch(increment());
+
+      
+
     } catch (error) {
       alert(error.message);
     }

@@ -70,17 +70,17 @@ export const TiposCounter = () => {
   const [active, setActive] = useState(false);
 
   //TODO Funcion que avanza a redux
-  /* const handleClick = () => {
+  const handleClick = () => {
     dispatch(increment());
     setActive(false);
     setMedidaNum(0);
-  }; */
-  const handleClick = () => {
+  };
+  /* const handleClick = () => {
     // Si nuMobiliario es el último índice, vuelve a 0, de lo contrario, incrementa nuMobiliario
     setNuMobiliario(
       nuMobiliario === arryMobiliario.length - 1 ? 0 : nuMobiliario + 1
     );
-  };
+  }; */
 
   const handlePagina = () => {
     dispatch(decrement());

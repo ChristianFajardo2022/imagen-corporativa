@@ -1,4 +1,4 @@
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, getDocs, updateDoc, setDoc, collection } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
 const getLocaleById = async (id) => {
@@ -11,30 +11,43 @@ const getLocaleById = async (id) => {
       return { data: null, error: "ID no encontrado" };
     }
   } catch (error) {
-    return { data: null, error: "Error al obtener datos" };
+    return { data: null, error: `Error al obtener datos: ${error.message}` };
   }
 };
 
-// Función para actualizar datos en un documento específico
+const getAllLocales = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "locales"));
+    const locales = [];
+    querySnapshot.forEach((doc) => {
+      locales.push({ id: doc.id, ...doc.data() });
+    });
+    return { data: locales, error: null };
+  } catch (error) {
+    return { data: null, error: `Error al obtener los datos: ${error.message}` };
+  }
+};
+
+
+
 const updateLocaleData = async (id, key, value) => {
   try {
     const localeRef = doc(db, "locales", id);
     await updateDoc(localeRef, { [key]: value });
     return { success: true };
   } catch (error) {
-    return { success: false, error: error.message };
+    return { success: false, error: `Error al actualizar datos: ${error.message}` };
   }
 };
 
-// Función para añadir o fusionar datos en un documento específico
 const addLocaleData = async (id, data) => {
   try {
     const localeRef = doc(db, "locales", id);
     await setDoc(localeRef, data, { merge: true });
     return { success: true };
   } catch (error) {
-    return { success: false, error: error.message };
+    return { success: false, error: `Error al añadir datos: ${error.message}` };
   }
 };
 
-export { getLocaleById, updateLocaleData, addLocaleData };
+export { getLocaleById, updateLocaleData, addLocaleData, getAllLocales };

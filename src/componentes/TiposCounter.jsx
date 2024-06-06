@@ -9,6 +9,7 @@ import {
   setData,
 } from "../store/slices/counter/counterSlides";
 import { SlideMedidas } from "./SlideMedidas";
+import { uploadBlobToStorage } from "../firebase/firebaseService";
 
 const TipodeCounter = [
   {
@@ -129,6 +130,30 @@ export const TiposCounter = () => {
 
   const filter = arryMobiliario.filter((item) => item !== "counter");
 
+  
+    const handleUpload = async () => {
+      if (imgSrc) {
+        try {
+          const response = await fetch(imgSrc);
+          const blob = await response.blob();
+          const result = await uploadBlobToStorage(blob, "images");
+  
+          if (result.success) {
+            console.log("Image uploaded successfully:", result.url);
+            // Puedes guardar la URL en el estado o en Redux si es necesario
+          } else {
+            console.error("Error uploading image:", result.error);
+          }
+        } catch (error) {
+          console.error("Error fetching the blob:", error);
+        }
+      }
+    };
+  
+    handleUpload();
+  
+
+  console.log(imgSrc)
   return (
     <>
       <Layout

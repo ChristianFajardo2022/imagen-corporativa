@@ -88,6 +88,19 @@ export const TiposCounter = () => {
     agregarValoresAlArray(arryMobiliario[nuMobiliario], Propiedad);
   }, [Propiedad]);
 
+  useEffect(() => {
+    setDataForm((pre) => ({ ...pre, imagen: imgSrc }));
+  }, [imgSrc]);
+
+  const reset = () => {
+    dispatch(increment());
+    setNuMobiliario(nuMobiliario + 1);
+    setMedidaNum(null);
+    setPropiedad([]);
+    setImgSrc(null);
+    //setDataForm((pre) => ({ ...pre, ancho: "", alto: "", imagen: "" }));
+  };
+
   //TODO Funcion que avanza a redux
   const handleClick = () => {
     const newNum = NumCounter - 2;
@@ -104,24 +117,19 @@ export const TiposCounter = () => {
         setPropiedad((prevPropiedades) => [...prevPropiedades, dataForm]);
 
         setTimeout(() => {
-          dispatch(increment());
-          setNuMobiliario(nuMobiliario + 1);
-          setMedidaNum(null);
-          setPropiedad([]);
+          reset();
         }, 1000);
       }
     } else if (Pagina >= 7) {
       setPropiedad((prevPropiedades) => [...prevPropiedades, dataForm]);
 
       setTimeout(() => {
-        dispatch(increment());
-        setNuMobiliario(nuMobiliario + 1);
-        setMedidaNum(null);
-        setPropiedad([]);
+        reset();
       }, 1000);
     }
   };
 
+  console.log(dataForm);
   const handlePagina = () => {
     dispatch(decrement());
     setMedidaNum(null);

@@ -67,6 +67,7 @@ export const SlideMedidas = ({
         </div>
         <div>
           <CamposMedidas
+            setData={setData}
             medida={"Foto"}
             autoFocus={currentSlide === 2}
             takephoto={true}

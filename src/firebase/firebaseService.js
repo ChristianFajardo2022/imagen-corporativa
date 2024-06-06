@@ -1,5 +1,7 @@
 import { doc, getDoc, getDocs, updateDoc, setDoc, collection } from "firebase/firestore";
 import { db } from "./firebaseConfig";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "./firebaseConfig";
 
 const getLocaleById = async (id) => {
   try {
@@ -64,4 +66,26 @@ const getUserCredentials = async (username) => {
   }
 };
 
-export { getLocaleById, updateLocaleData, addLocaleData, getAllLocales, getUserCredentials };
+const uploadBlobToStorage = async (blob, path) => {
+  try {
+    // Crear un nombre de archivo único usando la fecha y hora actual
+    const fileName = `image_${Date.now()}.webp`;
+    const storageRef = ref(storage, `${path}/${fileName}`);
+
+    // Convertir blob a archivo
+    const file = new File([blob], fileName, { type: blob.type });
+
+    // Subir archivo a Firebase Storage
+    await uploadBytes(storageRef, file);
+
+    // Obtener URL de descarga
+    const downloadURL = await getDownloadURL(storageRef);
+
+    return { success: true, url: downloadURL };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+};
+
+
+export { getLocaleById, updateLocaleData, addLocaleData, getAllLocales, getUserCredentials, uploadBlobToStorage };

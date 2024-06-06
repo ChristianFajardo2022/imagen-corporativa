@@ -27,7 +27,6 @@ export const SeleccionTipoCounter = ({ setActive, NumCounter }) => {
   };
   const handleNewCouters = () => {
     setOpen(false);
-    setActive(true);
     dispatch(setNumeCounter(Number(counterAdd)));
   };
 
@@ -71,7 +70,6 @@ export const SeleccionTipoCounter = ({ setActive, NumCounter }) => {
               onKeyDown={(e) => {
                 if (e.key == "Enter") {
                   setOpen(false);
-                  setActive(true);
                 }
               }}
             />

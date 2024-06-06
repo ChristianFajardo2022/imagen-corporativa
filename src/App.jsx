@@ -18,6 +18,8 @@ import { TiposCounter } from "./componentes/TiposCounter";
 import Comprobado from "./componentes/Comprobado";
 import Administrador from "./componentes/Administrador";
 import Login from "./componentes/Login";
+import { Counters } from "./componentes/Counters";
+import { Counter } from "./componentes/Counter";
 
 const AppContent = ({ isAuthenticated, onLogin }) => {
   const { Pagina } = useSelector((state) => state.counter);
@@ -38,7 +40,10 @@ const AppContent = ({ isAuthenticated, onLogin }) => {
               {Pagina === 2 && <Comprobado />}
               {Pagina === 3 && <TipoAgencia />}
               {Pagina === 4 && <TiposMobiliario />}
-              {Pagina >= 5 && <TiposCounter />}
+              {Pagina === 5 && <Counters />}
+              {Pagina === 6 && <Counter />}
+
+              {/* {Pagina >= 5 && <TiposCounter />} */}
             </>
           }
         />

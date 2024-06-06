@@ -9,7 +9,7 @@ import {
   setPagina,
 } from "../store/slices/counter/counterSlides";
 
-const selectores = ["Agencia", "Alianza", "Corresponsal", "Punto de venta"];
+const selectores = ["Agencia", "Corresponsal", "Punto de venta"];
 
 export const TipoAgencia = () => {
   const [active, setActive] = useState(false);

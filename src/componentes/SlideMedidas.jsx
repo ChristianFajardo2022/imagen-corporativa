@@ -1,10 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import { CamposMedidas } from "./CamposMedidas";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export const SlideMedidas = ({ setMedidaNum }) => {
+export const SlideMedidas = ({
+  setMedidaNum,
+  index,
+  setData,
+  imgSrc,
+  setImgSrc,
+}) => {
   const sliderRef = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -39,23 +45,33 @@ export const SlideMedidas = ({ setMedidaNum }) => {
     <div
       className="h-full w-full boxMedidas"
       onKeyDown={handleKeyDown}
-      tabIndex={0}
+      tabIndex={index}
     >
+      {/* <p className="w-full text-center mb-2 font-bold">{`Counter # ${
+        index + 1
+      }`}</p> */}
       <Slider {...settings} ref={sliderRef}>
         <div>
           <CamposMedidas
-            medida={"Ancho en cm"}
+            setData={setData}
+            medida={"ancho"}
             autoFocus={currentSlide === 0}
           />
         </div>
         <div>
-          <CamposMedidas medida={"Alto en cm"} autoFocus={currentSlide === 1} />
+          <CamposMedidas
+            setData={setData}
+            medida={"alto"}
+            autoFocus={currentSlide === 1}
+          />
         </div>
         <div>
           <CamposMedidas
             medida={"Foto"}
             autoFocus={currentSlide === 2}
             takephoto={true}
+            imgSrc={imgSrc}
+            setImgSrc={setImgSrc}
           />
         </div>
       </Slider>

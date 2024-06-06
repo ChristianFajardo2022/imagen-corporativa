@@ -3,7 +3,11 @@ import { Layout } from "./Layout";
 import { Selector } from "./Selector";
 import { SeleccionTipoCounter } from "./SeleccionTipoCounter";
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "../store/slices/counter/counterSlides";
+import {
+  decrement,
+  increment,
+  setData,
+} from "../store/slices/counter/counterSlides";
 import { SlideMedidas } from "./SlideMedidas";
 
 const TipodeCounter = [
@@ -14,23 +18,23 @@ const TipodeCounter = [
         local: "/localAntiguo",
         aviso: "/aviso",
       },
-      counter: [{}],
-      local: {},
-      aviso: {},
+      counter: [],
+      local: [],
+      aviso: [],
     },
   },
   {
     nuevo: {
       imagenes: {
-        counter: "/nuevo.webp",
-        cenefa: "/cenefa.webp",
-        local: "/localNuevo.webp",
-        aviso: "/aviso.webp",
+        counter: "/nuevo",
+        cenefa: "/cenefa",
+        local: "/localNuevo",
+        aviso: "/aviso",
       },
-      counter: [{}],
-      cenefa: {},
-      local: {},
-      aviso: {},
+      counter: [],
+      cenefa: [],
+      local: [],
+      aviso: [],
     },
   },
 ];
@@ -39,9 +43,18 @@ const opcionesMobiliario = ["counter", "cenefa", "local", "aviso"];
 export const TiposCounter = () => {
   const { formData, Pagina } = useSelector((state) => state.counter);
   const [medidaNum, setMedidaNum] = useState(null);
+  const [dataForm, setDataForm] = useState({
+    ancho: "",
+    alto: "",
+    imagen: "",
+  });
+  const [active, setActive] = useState(false);
+  const [Propiedad, setPropiedad] = useState([]);
   const [nuMobiliario, setNuMobiliario] = useState(0);
+  const [imgSrc, setImgSrc] = useState(null);
   const NumCounter = formData.NumCounters;
   const mobiliario = formData.mobiliario;
+  const [counters, setCounters] = useState(NumCounter - NumCounter);
   const dispatch = useDispatch();
 
   //Filtramos para ubicar el tipo de mobiliario y sus propiedades
@@ -66,26 +79,55 @@ export const TiposCounter = () => {
     imagen = TipoMobiliario.imagenes[arryMobiliario[nuMobiliario]];
   }
 
-  console.log(arryMobiliario);
-  const [active, setActive] = useState(false);
+  const agregarValoresAlArray = (array, valores) => {
+    dispatch(setData({ key: array, value: valores }));
+    return;
+  };
+
+  useEffect(() => {
+    agregarValoresAlArray(arryMobiliario[nuMobiliario], Propiedad);
+  }, [Propiedad]);
 
   //TODO Funcion que avanza a redux
   const handleClick = () => {
-    dispatch(increment());
-    setActive(false);
-    setMedidaNum(0);
+    const newNum = NumCounter - 2;
+    if (Pagina === 5) {
+      dispatch(increment());
+      setActive(false);
+      setMedidaNum(0);
+    } else if (Pagina === 6) {
+      if (counters <= newNum) {
+        setCounters(counters + 1);
+        setMedidaNum(0);
+        setPropiedad((prevPropiedades) => [...prevPropiedades, dataForm]);
+      } else {
+        setPropiedad((prevPropiedades) => [...prevPropiedades, dataForm]);
+
+        setTimeout(() => {
+          dispatch(increment());
+          setNuMobiliario(nuMobiliario + 1);
+          setMedidaNum(null);
+          setPropiedad([]);
+        }, 1000);
+      }
+    } else if (Pagina >= 7) {
+      setPropiedad((prevPropiedades) => [...prevPropiedades, dataForm]);
+
+      setTimeout(() => {
+        dispatch(increment());
+        setNuMobiliario(nuMobiliario + 1);
+        setMedidaNum(null);
+        setPropiedad([]);
+      }, 1000);
+    }
   };
-  /* const handleClick = () => {
-    // Si nuMobiliario es el último índice, vuelve a 0, de lo contrario, incrementa nuMobiliario
-    setNuMobiliario(
-      nuMobiliario === arryMobiliario.length - 1 ? 0 : nuMobiliario + 1
-    );
-  }; */
 
   const handlePagina = () => {
     dispatch(decrement());
     setMedidaNum(null);
   };
+
+  const filter = arryMobiliario.filter((item) => item !== "counter");
 
   return (
     <>
@@ -97,17 +139,24 @@ export const TiposCounter = () => {
         btnTrue={true}
       >
         <div>
-          <h3 className="w-full text-center">{arryMobiliario[nuMobiliario]}</h3>
+          <h3 className="w-full text-center mt-8">
+            {arryMobiliario[nuMobiliario]}
+          </h3>
 
-          <figure className="w-full my-16 lg:px-10 xs:px-6">
-            <img
-              src={`${
-                medidaNum === null || medidaNum === 2
-                  ? imagen
-                  : imagen + medidaNum
-              }.webp`}
-              alt=""
-            />
+          <figure className="h-96 w-full my-8 lg:px-10 xs:px-6">
+            {imgSrc != null && medidaNum === 2 ? (
+              <img className="object-contain" src={imgSrc} alt="" />
+            ) : (
+              <img
+                className="object-contain"
+                src={`${
+                  medidaNum === null || medidaNum === 2
+                    ? imagen
+                    : imagen + medidaNum
+                }.webp`}
+                alt=""
+              />
+            )}
           </figure>
           <div className="min-h-80 h-1 w-full xs:overflow-x-scroll lg:overflow-hidden">
             {Pagina == 5 && (
@@ -123,7 +172,37 @@ export const TiposCounter = () => {
             )}
             {Pagina == 6 && (
               <>
-                <SlideMedidas setMedidaNum={setMedidaNum} />
+                {Array.from({ length: NumCounter }, (_, index) => (
+                  <div key={index}>
+                    {index == counters && (
+                      <SlideMedidas
+                        index={index}
+                        key={index}
+                        setMedidaNum={setMedidaNum}
+                        setData={setDataForm}
+                        imgSrc={imgSrc}
+                        setImgSrc={setImgSrc}
+                      />
+                    )}
+                  </div>
+                ))}
+              </>
+            )}
+            {Pagina >= 7 && (
+              <>
+                {filter.map((index) => (
+                  <>
+                    {index == arryMobiliario[nuMobiliario] && (
+                      <SlideMedidas
+                        index={index}
+                        setMedidaNum={setMedidaNum}
+                        setData={setDataForm}
+                        imgSrc={imgSrc}
+                        setImgSrc={setImgSrc}
+                      />
+                    )}
+                  </>
+                ))}
               </>
             )}
           </div>

@@ -1,13 +1,24 @@
 import { useEffect, useState, useRef } from "react";
 import TakePhoto from "./TakePhoto";
 
-export const CamposMedidas = ({ medida, autoFocus, takephoto }) => {
+export const CamposMedidas = ({
+  medida,
+  autoFocus,
+  takephoto,
+  setData,
+  imgSrc,
+  setImgSrc,
+}) => {
   const [number, setNumber] = useState("");
+
   const inputRef = useRef(null);
 
   const handleChange = (e) => {
+    const name = e.target.name;
     const value = e.target.value.replace(/[^\d]/g, ""); // Remover caracteres no numéricos
     setNumber(value);
+    //console.log(name);
+    setData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleFocus = (e) => {
@@ -50,13 +61,14 @@ export const CamposMedidas = ({ medida, autoFocus, takephoto }) => {
         </p>
 
         {takephoto ? (
-          <TakePhoto takephoto={true} />
+          <TakePhoto takephoto={true} imgSrc={imgSrc} setImgSrc={setImgSrc} />
         ) : (
           <input
             ref={inputRef}
             className="text-center"
             type="text"
-            placeholder={medida}
+            name={medida}
+            placeholder={`${medida} en cm`}
             value={number}
             onChange={handleChange}
             onFocus={handleFocus}

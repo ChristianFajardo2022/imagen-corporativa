@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const counterSlice = createSlice({
   name: "counter",
   initialState: {
-    Pagina: 0,
+    Pagina: 3,
     resultado: false,
     loading: false,
     formData: {
@@ -12,30 +12,10 @@ export const counterSlice = createSlice({
       tipoFranquicia: "",
       mobiliario: "",
       NumCounters: 0,
-      counter: [
-        {
-          ancho: 1,
-          alto: 1,
-          imagen: "0",
-        },
-      ],
-      cenefa: {
-        ancho: 1,
-        alto: 1,
-        imagen: "0",
-      },
-      local: {
-        ancho: 1,
-        alto: 1,
-        imagen: "0",
-      },
-      aviso: [
-        {
-          ancho: 1,
-          alto: 1,
-          imagen: "0",
-        },
-      ],
+      counter: [],
+      cenefa: [],
+      local: [],
+      aviso: [],
     },
   },
   reducers: {

@@ -50,4 +50,18 @@ const addLocaleData = async (id, data) => {
   }
 };
 
-export { getLocaleById, updateLocaleData, addLocaleData, getAllLocales };
+const getUserCredentials = async (username) => {
+  try {
+    const docRef = doc(db, "usuarios", username);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return { data: docSnap.data(), error: null };
+    } else {
+      return { data: null, error: "Usuario no encontrado" };
+    }
+  } catch (error) {
+    return { data: null, error: `Error al obtener datos: ${error.message}` };
+  }
+};
+
+export { getLocaleById, updateLocaleData, addLocaleData, getAllLocales, getUserCredentials };

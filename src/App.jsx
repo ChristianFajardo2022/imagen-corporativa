@@ -5,10 +5,10 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
+import { useState } from "react";
 import { Button } from "./componentes/Button";
 import { BoxMobiliario } from "./componentes/BoxMobiliario";
 import { Selector } from "./componentes/Selector";
-import { useState } from "react";
 import TakePhoto from "./componentes/TakePhoto";
 import { TiposMobiliario } from "./componentes/TiposMobiliario";
 import { TipoAgencia } from "./componentes/TipoAgencia";
@@ -17,8 +17,9 @@ import Seguridad from "./componentes/Seguridad";
 import { TiposCounter } from "./componentes/TiposCounter";
 import Comprobado from "./componentes/Comprobado";
 import Administrador from "./componentes/Administrador";
+import Login from "./componentes/Login";
 
-const AppContent = () => {
+const AppContent = ({ isAuthenticated, onLogin }) => {
   const { Pagina } = useSelector((state) => state.counter);
   const location = useLocation();
 
@@ -41,16 +42,27 @@ const AppContent = () => {
             </>
           }
         />
-        <Route path="/administrador" element={<Administrador />} />
+        <Route
+          path="/administrador"
+          element={
+            isAuthenticated ? <Administrador /> : <Login onLogin={onLogin} />
+          }
+        />
       </Routes>
     </div>
   );
 };
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
   return (
     <Router>
-      <AppContent />
+      <AppContent isAuthenticated={isAuthenticated} onLogin={handleLogin} />
     </Router>
   );
 }

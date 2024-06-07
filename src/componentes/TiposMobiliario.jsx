@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { BoxMobiliario } from "./BoxMobiliario";
 import { Layout } from "./Layout";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   increment,
   setData,
   setPagina,
 } from "../store/slices/counter/counterSlides";
+import { updateLocaleData } from "../firebase/firebaseService";
 
 const selectorBox = [
   {
@@ -23,15 +24,28 @@ export const TiposMobiliario = () => {
   const [activeSelector, setActiveSelector] = useState(null);
   const [active, setActive] = useState(false);
   const dispatch = useDispatch();
+  const { formData } = useSelector((state) => state.counter)
 
   // Función para manejar el clic en un selector
-  const handleClick = (selector) => {
+  const handleClick = async (selector) => {
     setActiveSelector(selector);
     setActive(true);
     dispatch(setData({ key: "mobiliario", value: selector }));
 
-
+    try {
+      // Agregar datos al Firestore
+      await updateLocaleData(formData.id, "mobiliario", selector);
+    
+     
+      
+    } catch (error) {
+      console.error("Error al actualizar los datos en Firestore:", error);
+      // Manejar el error aquí
+    }
   };
+
+
+
 
   //Enviar a Aviso
 

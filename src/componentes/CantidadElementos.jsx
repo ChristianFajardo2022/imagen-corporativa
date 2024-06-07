@@ -5,7 +5,7 @@ import { Layout } from "./Layout";
 import { Propiedad } from "./Propiedad";
 import { SeleccionTipoCounter } from "./SeleccionTipoCounter";
 
-export const CantidadElementos = ({
+export const CantidadElementos = ({handleFirebase,
   NumMobiliarios,
   setActive,
   active,
@@ -17,6 +17,8 @@ export const CantidadElementos = ({
 
   const handleClick = () => {
     dispatch(increment());
+
+handleFirebase();
   };
 
   return (

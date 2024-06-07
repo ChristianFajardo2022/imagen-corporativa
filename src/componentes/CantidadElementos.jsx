@@ -11,6 +11,7 @@ export const CantidadElementos = ({
   active,
   title,
   mobiliario,
+  setNumeCounter,
 }) => {
   const dispatch = useDispatch();
 
@@ -26,12 +27,19 @@ export const CantidadElementos = ({
         active={active ? true : false}
         btnTrue={true}
       >
-        <Propiedad title={title} mobiliario={`${mobiliario}.webp`}>
+        <Propiedad
+          title={title}
+          mobiliario={`${title === "aviso" ? title : mobiliario}.webp`}
+        >
           <>
             <p className="w-1/2 mx-auto text-center">
-              ¿Cuántos counter tienes en el local?
+              {`¿Cuántos ${
+                title === "aviso" ? "avisos" : title
+              } tienes en el local?`}
             </p>
             <SeleccionTipoCounter
+              title={title}
+              setNumeCounter={setNumeCounter}
               NumCounter={NumMobiliarios}
               setActive={setActive}
             />

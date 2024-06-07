@@ -12,6 +12,7 @@ export const counterSlice = createSlice({
       tipoFranquicia: "",
       mobiliario: "",
       NumCounters: 1,
+      NumAvisos: 1,
       counter: [],
       cenefa: [],
       local: [],
@@ -41,6 +42,9 @@ export const counterSlice = createSlice({
     setNumeCounter: (state, action) => {
       state.formData.NumCounters = action.payload;
     },
+    setAvisos: (state, action) => {
+      state.formData.NumAvisos = action.payload;
+    },
   },
 });
 
@@ -54,6 +58,7 @@ export const {
   setLoading,
   setPagina,
   setNumeCounter,
+  setAvisos,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

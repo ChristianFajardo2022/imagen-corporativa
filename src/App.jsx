@@ -20,10 +20,16 @@ import Administrador from "./componentes/Administrador";
 import Login from "./componentes/Login";
 import { Counters } from "./componentes/Counters";
 import { Counter } from "./componentes/Counter";
+import { Cenefa } from "./componentes/Cenefa";
+import { Local } from "./componentes/Local";
+import { Avisos } from "./componentes/Avisos";
+import { Aviso } from "./componentes/Aviso";
 
 const AppContent = ({ isAuthenticated, onLogin }) => {
-  const { Pagina } = useSelector((state) => state.counter);
+  const { Pagina, formData } = useSelector((state) => state.counter);
   const location = useLocation();
+
+  const mobiliario = formData.mobiliario;
 
   const containerClass =
     location.pathname === "/" ? "max-w-[30rem] m-auto flexCenter h-full" : "";
@@ -42,6 +48,12 @@ const AppContent = ({ isAuthenticated, onLogin }) => {
               {Pagina === 4 && <TiposMobiliario />}
               {Pagina === 5 && <Counters />}
               {Pagina === 6 && <Counter />}
+
+              {Pagina === 7 && <Cenefa />}
+
+              {Pagina === 8 && <Local />}
+              {Pagina === 9 && <Avisos />}
+              {Pagina === 10 && <Aviso />}
 
               {/* {Pagina >= 5 && <TiposCounter />} */}
             </>

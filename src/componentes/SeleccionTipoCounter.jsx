@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { Selector } from "./Selector";
 import { useDispatch } from "react-redux";
-import { setNumeCounter } from "../store/slices/counter/counterSlides";
 
-const cantidadCounter = ["Un counter", "Dos counter"];
+const cantidadCounter = ["Un", "Dos"];
 
-export const SeleccionTipoCounter = ({ setActive, NumCounter }) => {
+export const SeleccionTipoCounter = ({
+  setActive,
+  NumCounter,
+  setNumeCounter,
+  title,
+}) => {
   const [open, setOpen] = useState(false);
   const [counterAdd, setCounterAdd] = useState();
   const dispatch = useDispatch();
@@ -13,6 +17,12 @@ export const SeleccionTipoCounter = ({ setActive, NumCounter }) => {
   const [counterState, setCounterState] = useState(
     cantidadCounter[NumCounter - 1]
   );
+  const constructortitle =
+    title === "aviso" && counterState === "Un"
+      ? title
+      : title === "counter" && counterState === "Un"
+      ? title
+      : `${title}s`;
 
   const handleCounter = (counter, index) => {
     dispatch(setNumeCounter(index + 1));
@@ -30,7 +40,7 @@ export const SeleccionTipoCounter = ({ setActive, NumCounter }) => {
     setActive(true);
     dispatch(setNumeCounter(Number(counterAdd)));
   };
-
+  console.log(counterState);
   return (
     <div className="selectOpcions relative lg:px-10 xs:px-6 ">
       <Selector
@@ -38,8 +48,8 @@ export const SeleccionTipoCounter = ({ setActive, NumCounter }) => {
         customStyle={`tipoSelect`}
         title={
           NumCounter <= cantidadCounter.length
-            ? counterState
-            : `${counterAdd} Counters`
+            ? `${counterState} ${constructortitle}`
+            : `${counterAdd} ${constructortitle}`
         }
         icon={true}
       />
@@ -51,7 +61,13 @@ export const SeleccionTipoCounter = ({ setActive, NumCounter }) => {
               onClick={() => handleCounter(counter, index)}
               className="cursor-pointer hover:bg-[--btn-active] hover:text-white w-full effect px-6 py-2"
             >
-              {counter}
+              {`${counter} ${
+                title === "aviso" && counter === "Un"
+                  ? title
+                  : title === "counter" && counter === "Un"
+                  ? title
+                  : `${title}s`
+              }`}
             </span>
           ))}
           <span className="group flex items-center cursor-pointer hover:bg-[--btn-active] hover:text-white w-full effect px-6">

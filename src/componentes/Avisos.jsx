@@ -3,23 +3,23 @@ import { Layout } from "./Layout";
 import { SeleccionTipoCounter } from "./SeleccionTipoCounter";
 import { useSelector } from "react-redux";
 import { CantidadElementos } from "./CantidadElementos";
-import { setNumeCounter } from "../store/slices/counter/counterSlides";
+import { setAvisos } from "../store/slices/counter/counterSlides";
 
-export const Counters = () => {
+export const Avisos = () => {
   const { formData } = useSelector((state) => state.counter);
   const [active, setActive] = useState(false);
 
-  const NumCounters = formData.NumCounters;
+  const NumCounters = formData.NumAvisos;
   const mobiliario = formData.mobiliario;
 
   return (
     <>
       <CantidadElementos
-        setNumeCounter={setNumeCounter}
+        setNumeCounter={setAvisos}
         NumMobiliarios={NumCounters}
         setActive={setActive}
         active={active}
-        title={"counter"}
+        title={"aviso"}
         mobiliario={mobiliario}
       />
     </>

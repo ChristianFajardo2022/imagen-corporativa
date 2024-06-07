@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { increment, setPagina } from "../store/slices/counter/counterSlides";
+import { increment } from "../store/slices/counter/counterSlides";
 import { ConstructorPropiedades } from "./ConstructorPropiedades";
 
-export const Counter = () => {
+export const Aviso = () => {
   const { formData } = useSelector((state) => state.counter);
   const [medidaNum, setMedidaNum] = useState(0);
   const [imgSrc, setImgSrc] = useState(null);
   const [active, setActive] = useState(false);
   const [inicial, setInicial] = useState(0);
   const dispatch = useDispatch();
-  const NumCounters = formData.NumCounters;
-  const mobiliario = formData.mobiliario;
+  const NumCounters = formData.NumAvisos;
+  const mobiliario = "aviso";
   let posicionPropiedad = inicial + 1;
   const [dataCounter, setDataCounter] = useState([]);
   const [dataForm, setDataForm] = useState({
@@ -28,11 +28,7 @@ export const Counter = () => {
     if (posicionPropiedad >= NumCounters) {
       setDataCounter((prev) => [...prev, dataForm]);
       setTimeout(() => {
-        if (formData.mobiliario == "antiguo") {
-          dispatch(setPagina(8));
-        } else {
-          dispatch(increment());
-        }
+        dispatch(increment());
 
         /* Funcion aqui para enviar a la base de datos */
       }, 1000);
@@ -47,7 +43,7 @@ export const Counter = () => {
 
   return (
     <ConstructorPropiedades
-      title={"Counter"}
+      title={mobiliario}
       handleClick={handleClick}
       active={active}
       NumCounters={NumCounters}

@@ -29,6 +29,8 @@ export const TiposMobiliario = () => {
     setActiveSelector(selector);
     setActive(true);
     dispatch(setData({ key: "mobiliario", value: selector }));
+
+
   };
 
   //Enviar a Aviso

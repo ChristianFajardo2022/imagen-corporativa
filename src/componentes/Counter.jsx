@@ -81,6 +81,7 @@ export const Counter = () => {
         }
       }, 1000);
     } else {
+      setMedidaNum(0);
       setInicial(inicial + 1);
       setImgSrc(null);
     }

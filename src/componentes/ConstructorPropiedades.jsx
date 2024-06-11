@@ -26,7 +26,7 @@ export const ConstructorPropiedades = ({
       active ? handleClick() : alert("Ningún campo puede estar vacío");
     }
   };
-
+  console.log(medidaNum);
   return (
     <>
       <Layout

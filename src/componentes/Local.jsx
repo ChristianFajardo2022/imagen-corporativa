@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { increment, setPagina } from "../store/slices/counter/counterSlides";
 import { ConstructorPropiedades } from "./ConstructorPropiedades";
+import { updateLocaleData } from "../firebase/firebaseService";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const Local = () => {
   const { formData } = useSelector((state) => state.counter);
@@ -13,7 +15,7 @@ export const Local = () => {
   const NumCounters = 1;
   const mobiliario = formData.mobiliario;
   let posicionPropiedad = inicial + 1;
-  const [dataCounter, setDataCounter] = useState([]);
+  const [dataLocal, setDataLocal] = useState([]);
   const [dataForm, setDataForm] = useState({
     ancho: "",
     alto: "",
@@ -36,13 +38,39 @@ export const Local = () => {
     setDataForm((pre) => ({ ...pre, imagen: imgSrc }));
   }, [imgSrc]);
 
-  const handleClick = () => {
+  const uploadImageToStorage = async (imageBlob) => {
+    const storage = getStorage();
+    const storageRef = ref(storage, `images/${formData.id}/${Date.now()}`);
+    const snapshot = await uploadBytes(storageRef, imageBlob);
+    return await getDownloadURL(snapshot.ref);
+  };
+
+  const handleClick = async () => {
+    const newDataLocal = [ ...dataLocal, dataForm];
+    setDataLocal(newDataLocal);
+
     if (posicionPropiedad >= NumCounters) {
-      setDataCounter((prev) => [...prev, dataForm]);
-      setTimeout(() => {
+      setTimeout(async () => {
         dispatch(increment());
 
         /* Funcion aqui para enviar a la base de datos */
+        const updatedDataLocal = await Promise.all(
+          newDataLocal.map(async (item) => {
+            if (item.imagen.startsWith("blob:")) {
+              const imageBlob = await fetch(item.imagen).then((r) => r.blob());
+              const imageUrl = await uploadImageToStorage(imageBlob);
+              return { ...item, imagen: imageUrl };
+            }
+            return item;
+          })
+        );
+
+        try {
+          await updateLocaleData(formData.id, "dataLocal", updatedDataLocal);
+          console.log("Datos actualizados en Firestore");
+        } catch (error) {
+          console.error("Error al actualizar los datos en Firestore:", error);
+        }
       }, 1000);
     } else {
       setInicial(inicial + 1);

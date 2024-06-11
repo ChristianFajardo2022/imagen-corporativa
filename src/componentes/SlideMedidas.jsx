@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { CamposMedidas } from "./CamposMedidas";
 import "slick-carousel/slick/slick.css";
@@ -10,8 +10,8 @@ export const SlideMedidas = ({
   setData,
   imgSrc,
   setImgSrc,
+  sliderRef,
 }) => {
-  const sliderRef = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const settings = {
@@ -47,9 +47,6 @@ export const SlideMedidas = ({
       onKeyDown={handleKeyDown}
       tabIndex={index}
     >
-      {/* <p className="w-full text-center mb-2 font-bold">{`Counter # ${
-        index + 1
-      }`}</p> */}
       <Slider {...settings} ref={sliderRef}>
         <div>
           <CamposMedidas

@@ -8,7 +8,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 export const Counter = () => {
   const { formData } = useSelector((state) => state.counter);
   const [medidaNum, setMedidaNum] = useState(0);
-  const [imgSrc, setImgSrc] = useState(null);
+  const [imgSrc, setImgSrc] = useState("");
   const [active, setActive] = useState(false);
   const [inicial, setInicial] = useState(0);
   const dispatch = useDispatch();
@@ -21,6 +21,18 @@ export const Counter = () => {
     alto: "",
     imagen: "",
   });
+
+  //manejar el estado de active
+  useEffect(() => {
+    const camposCompletados = Object.values(dataForm).every(
+      (field) => field !== ""
+    );
+    if (camposCompletados) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, [dataForm]);
 
   useEffect(() => {
     setDataForm((pre) => ({ ...pre, imagen: imgSrc }));
@@ -58,7 +70,11 @@ export const Counter = () => {
         );
 
         try {
-          await updateLocaleData(formData.id, "dataCounter", updatedDataCounter);
+          await updateLocaleData(
+            formData.id,
+            "dataCounter",
+            updatedDataCounter
+          );
           console.log("Datos actualizados en Firestore");
         } catch (error) {
           console.error("Error al actualizar los datos en Firestore:", error);

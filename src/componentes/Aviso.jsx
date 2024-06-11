@@ -20,6 +20,18 @@ export const Aviso = () => {
     imagen: "",
   });
 
+  //manejar el estado de active
+  useEffect(() => {
+    const camposCompletados = Object.values(dataForm).every(
+      (field) => field !== ""
+    );
+    if (camposCompletados) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, [dataForm]);
+
   useEffect(() => {
     setDataForm((pre) => ({ ...pre, imagen: imgSrc }));
   }, [imgSrc]);
@@ -38,8 +50,6 @@ export const Aviso = () => {
       setImgSrc(null);
     }
   };
-
-  console.log(dataCounter);
 
   return (
     <ConstructorPropiedades

@@ -40,7 +40,7 @@ export const SeleccionTipoCounter = ({
     setActive(true);
     dispatch(setNumeCounter(Number(counterAdd)));
   };
-  console.log(counterState);
+
   return (
     <div className="selectOpcions relative lg:px-10 xs:px-6 ">
       <Selector

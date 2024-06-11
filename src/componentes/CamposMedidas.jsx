@@ -64,6 +64,7 @@ export const CamposMedidas = ({
           <TakePhoto takephoto={true} imgSrc={imgSrc} setImgSrc={setImgSrc} />
         ) : (
           <input
+            autoComplete="off"
             ref={inputRef}
             className="text-center"
             type="text"

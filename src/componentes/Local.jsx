@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { increment } from "../store/slices/counter/counterSlides";
+import { increment, setPagina } from "../store/slices/counter/counterSlides";
 import { ConstructorPropiedades } from "./ConstructorPropiedades";
 
 export const Local = () => {
@@ -19,6 +19,18 @@ export const Local = () => {
     alto: "",
     imagen: "",
   });
+
+  //manejar el estado de active
+  useEffect(() => {
+    const camposCompletados = Object.values(dataForm).every(
+      (field) => field !== ""
+    );
+    if (camposCompletados) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, [dataForm]);
 
   useEffect(() => {
     setDataForm((pre) => ({ ...pre, imagen: imgSrc }));
@@ -39,10 +51,15 @@ export const Local = () => {
     }
   };
 
-  console.log(dataCounter);
+  const paginalocal = () => {
+    if (formData.mobiliario === "antiguo") {
+      dispatch(setPagina(6));
+    }
+  };
 
   return (
     <ConstructorPropiedades
+      paginalocal={paginalocal}
       title={"Local"}
       handleClick={handleClick}
       active={active}

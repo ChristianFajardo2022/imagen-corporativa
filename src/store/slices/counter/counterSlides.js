@@ -13,10 +13,6 @@ export const counterSlice = createSlice({
       mobiliario: "",
       NumCounters: 1,
       NumAvisos: 1,
-      counter: [],
-      cenefa: [],
-      local: [],
-      aviso: [],
     },
   },
   reducers: {
@@ -47,8 +43,6 @@ export const counterSlice = createSlice({
     },
   },
 });
-
-// Action creators are generated for each case reducer function
 
 export const {
   increment,

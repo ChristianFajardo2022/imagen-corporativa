@@ -49,13 +49,13 @@ span {
 }
 input,
 select {
-  @apply letrasContridasParrafos  wBox hBox  flex items-center justify-start shadow-xl rounded-2xl py-2 px-8 effect;
+  @apply letrasContridasParrafos wBox hBox flex items-center justify-start shadow-xl rounded-2xl py-2 px-8 effect;
 }
 .wBox {
   @apply w-full mx-auto my-6;
 }
 .hBox {
-  @apply min-h-16;
+  @apply min-h-16 h-16;
 }
 .fondoDegradado {
   @apply bg-gradient-to-tr from-[--bg-color-one] from-15%  to-[--bg-color-two] to-85%;

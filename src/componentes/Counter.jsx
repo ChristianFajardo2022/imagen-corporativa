@@ -75,9 +75,9 @@ export const Counter = () => {
             "dataCounter",
             updatedDataCounter
           );
-          console.log("Datos actualizados en Firestore");
+          //console.log("Datos actualizados en Firestore");
         } catch (error) {
-          console.error("Error al actualizar los datos en Firestore:", error);
+          console.error("Error al actualizar los datos", error);
         }
       }, 1000);
     } else {

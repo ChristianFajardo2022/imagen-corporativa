@@ -5,13 +5,26 @@ import { useDispatch } from "react-redux";
 import { increment, setData } from "../store/slices/counter/counterSlides";
 import { getLocaleById, addLocaleData } from "../firebase/firebaseService";
 
-
 export const Inicio = () => {
   const [active, setActive] = useState(false);
   const [formdata, setFormData] = useState({
     id: "",
     ciudad: "",
   });
+
+  useEffect(() => {
+    const handleTabKey = (event) => {
+      if (event.key === "Tab" || event.key === "Enter") {
+        event.preventDefault();
+      }
+    };
+
+    document.addEventListener("keydown", handleTabKey);
+
+    return () => {
+      document.removeEventListener("keydown", handleTabKey);
+    };
+  }, []);
 
   const dispatch = useDispatch();
 
@@ -45,16 +58,10 @@ export const Inicio = () => {
         throw new Error(error);
       }
 
-     
-
-
       // Si el ID es correcto, navega al componente Seguridad con el ID como parámetro en la URL
       updateField("id", formdata.id);
       updateField("ciudad", formdata.ciudad);
       dispatch(increment());
-
-      
-
     } catch (error) {
       alert(error.message);
     }

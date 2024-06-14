@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUserCredentials } from "../firebase/firebaseService";
 
@@ -8,12 +8,22 @@ const Login = ({ onLogin }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Verificar si hay un usuario almacenado en localStorage
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      navigate("/administrador");
+    }
+  }, [navigate]);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const { data, error } = await getUserCredentials(username);
     if (error) {
       setError("Usuario no encontrado");
-    } else if (data.contraseña === password) {
+    } else if (data && data.contraseña === password) {
+      // Guardar el nombre de usuario en localStorage
+      localStorage.setItem("username", username);
       onLogin();
       navigate("/administrador");
     } else {

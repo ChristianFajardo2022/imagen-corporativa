@@ -4,8 +4,9 @@ import {
   Route,
   Routes,
   useLocation,
+  Navigate,
 } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./componentes/Button";
 import { BoxMobiliario } from "./componentes/BoxMobiliario";
 import { Selector } from "./componentes/Selector";
@@ -25,11 +26,9 @@ import { Local } from "./componentes/Local";
 import { Avisos } from "./componentes/Avisos";
 import { Aviso } from "./componentes/Aviso";
 
-const AppContent = ({ isAuthenticated, onLogin }) => {
+const AppContent = ({ isAuthenticated, onLogin, onLogout }) => {
   const { Pagina, formData } = useSelector((state) => state.counter);
   const location = useLocation();
-
-  const mobiliario = formData.mobiliario;
 
   const containerClass =
     location.pathname === "/" ? "max-w-[30rem] m-auto flexCenter h-full" : "";
@@ -54,16 +53,18 @@ const AppContent = ({ isAuthenticated, onLogin }) => {
               {Pagina === 8 && <Local />}
               {Pagina === 9 && <Avisos />}
               {Pagina === 10 && <Aviso />}
-
-              {/* {Pagina >= 5 && <TiposCounter />} */}
             </>
           }
         />
         <Route
           path="/administrador"
           element={
-            isAuthenticated ? <Administrador /> : <Login onLogin={onLogin} />
+            isAuthenticated ? <Administrador onLogout={onLogout} /> : <Navigate to="/login" />
           }
+        />
+        <Route
+          path="/login"
+          element={<Login onLogin={onLogin} />}
         />
       </Routes>
     </div>
@@ -73,13 +74,26 @@ const AppContent = ({ isAuthenticated, onLogin }) => {
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  useEffect(() => {
+    // Verificar si hay un usuario almacenado en localStorage
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   const handleLogin = () => {
     setIsAuthenticated(true);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("username");
+    setIsAuthenticated(false);
+  };
+
   return (
     <Router>
-      <AppContent isAuthenticated={isAuthenticated} onLogin={handleLogin} />
+      <AppContent isAuthenticated={isAuthenticated} onLogin={handleLogin} onLogout={handleLogout} />
     </Router>
   );
 }

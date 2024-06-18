@@ -3,7 +3,11 @@ import { Layout } from "./Layout";
 import { SeleccionTipoCounter } from "./SeleccionTipoCounter";
 import { useDispatch, useSelector } from "react-redux";
 import { CantidadElementos } from "./CantidadElementos";
-import { setAvisos, setPagina } from "../store/slices/counter/counterSlides";
+import {
+  decrement,
+  setAvisos,
+  setPagina,
+} from "../store/slices/counter/counterSlides";
 import { updateLocaleData } from "../firebase/firebaseService";
 
 export const Avisos = () => {

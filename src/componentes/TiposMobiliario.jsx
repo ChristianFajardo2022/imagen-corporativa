@@ -24,7 +24,7 @@ export const TiposMobiliario = () => {
   const [activeSelector, setActiveSelector] = useState(null);
   const [active, setActive] = useState(false);
   const dispatch = useDispatch();
-  const { formData } = useSelector((state) => state.counter)
+  const { formData } = useSelector((state) => state.counter);
 
   // Función para manejar el clic en un selector
   const handleClick = async (selector) => {
@@ -35,22 +35,17 @@ export const TiposMobiliario = () => {
     try {
       // Agregar datos al Firestore
       await updateLocaleData(formData.id, "mobiliario", selector);
-    
-     
-      
     } catch (error) {
       console.error("Error al actualizar los datos en Firestore:", error);
       // Manejar el error aquí
     }
   };
 
-
-
-
   //Enviar a Aviso
 
   const HandleGoAviso = () => {
-    //dispatch(setPagina(0));
+    dispatch(setData({ key: "mobiliario", value: "aviso" }));
+    dispatch(setPagina(9));
   };
   return (
     <>

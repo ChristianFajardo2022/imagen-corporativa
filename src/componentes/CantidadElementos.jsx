@@ -5,25 +5,28 @@ import { Layout } from "./Layout";
 import { Propiedad } from "./Propiedad";
 import { SeleccionTipoCounter } from "./SeleccionTipoCounter";
 
-export const CantidadElementos = ({handleFirebase,
+export const CantidadElementos = ({
+  handleFirebase,
   NumMobiliarios,
   setActive,
   active,
   title,
   mobiliario,
   setNumeCounter,
+  paginalocal,
 }) => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
     dispatch(increment());
 
-handleFirebase();
+    handleFirebase();
   };
 
   return (
     <>
       <Layout
+        handlePagina={paginalocal ? paginalocal : false}
         handleClick={handleClick}
         textBtn={"Continuar"}
         active={active ? true : false}

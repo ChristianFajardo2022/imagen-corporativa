@@ -13,7 +13,7 @@ export const Selector = ({
         active ? "selectorActive" : ""
       }`}
     >
-      <span>{title} cm</span>
+      <span>{title} </span>
       {icon && (
         <figure className="cursor-pointer w-4 h-4 -rotate-90">
           {takephoto ? (

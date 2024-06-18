@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Selector } from "./Selector";
 
 export const SelectorMedidas = ({ setData, tipoMedida, nombreMedida }) => {
-  const [medida, setMedida] = useState(`Escoge la ${nombreMedida} en `);
+  const [medida, setMedida] = useState(`Indicanos ${nombreMedida} en `);
   const [open, setOpen] = useState(false);
   const handleCounter = (counter, index) => {
     //dispatch(setNumeCounter(index + 1));
@@ -17,13 +17,16 @@ export const SelectorMedidas = ({ setData, tipoMedida, nombreMedida }) => {
     <div className="selectOpcions">
       <Selector
         handleClick={() => setOpen(open ? false : true)}
-        title={medida}
+        title={`${medida} cm`}
         icon={true}
         customStyle={`tipoSelect`}
       />
 
       {open && (
-        <div className="tipoSelect__box selectorMedidas flex-col absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-3/4 overflow-auto">
+        <div
+          style={{ justifyContent: "center" }}
+          className="tipoSelect__box selectorMedidas flex-col absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-3/4 overflow-auto"
+        >
           {tipoMedida.map((medi, index) => (
             <span
               key={index}

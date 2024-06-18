@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import TakePhoto from "./TakePhoto";
+import { SelectorMedidas } from "./SelectorMedidas";
 
 export const CamposMedidas = ({
   medida,
@@ -8,6 +9,8 @@ export const CamposMedidas = ({
   setData,
   imgSrc,
   setImgSrc,
+  tipoMedida,
+  title,
 }) => {
   const [number, setNumber] = useState("");
 
@@ -54,7 +57,7 @@ export const CamposMedidas = ({
   }, []);
 
   return (
-    <div className="campos w-full flexCenter flex-col px-2">
+    <div className="campos w-full flexCenter flex-col px-2 relative">
       <div className="bg-[--btn-active] px-10 pt-6 rounded-2xl">
         <p className="w-full text-white text-center">
           Toma la medida como se muestra en la imagen y escríbela aquí.
@@ -63,18 +66,28 @@ export const CamposMedidas = ({
         {takephoto ? (
           <TakePhoto takephoto={true} imgSrc={imgSrc} setImgSrc={setImgSrc} />
         ) : (
-          <input
-            autoComplete="off"
-            ref={inputRef}
-            className="text-center"
-            type="text"
-            name={medida}
-            placeholder={`${medida} en cm`}
-            value={number}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          />
+          <>
+            {title === "Counter" ? (
+              <SelectorMedidas
+                setData={setData}
+                tipoMedida={tipoMedida}
+                nombreMedida={medida}
+              />
+            ) : (
+              <input
+                autoComplete="off"
+                ref={inputRef}
+                className="text-center"
+                type="text"
+                name={medida}
+                placeholder={`${medida} en cm`}
+                value={number}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+              />
+            )}
+          </>
         )}
       </div>
     </div>

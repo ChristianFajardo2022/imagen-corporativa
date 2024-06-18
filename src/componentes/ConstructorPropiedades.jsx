@@ -53,6 +53,7 @@ export const ConstructorPropiedades = ({
               >
                 <>
                   <SlideMedidas
+                    title={title}
                     sliderRef={sliderRef}
                     index={index}
                     imgSrc={imgSrc}

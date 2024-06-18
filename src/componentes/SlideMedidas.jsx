@@ -4,6 +4,11 @@ import { CamposMedidas } from "./CamposMedidas";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+//Medias de ancho
+const medidasAncho = [120, 130, 140, 150, 160, 170, 180, 190, 200, 210];
+//Medias de alto
+const medidasAlto = [120];
+
 export const SlideMedidas = ({
   setMedidaNum,
   index,
@@ -11,6 +16,7 @@ export const SlideMedidas = ({
   imgSrc,
   setImgSrc,
   sliderRef,
+  title,
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -50,6 +56,8 @@ export const SlideMedidas = ({
       <Slider {...settings} ref={sliderRef}>
         <div>
           <CamposMedidas
+            title={title}
+            tipoMedida={medidasAncho}
             setData={setData}
             medida={"ancho"}
             autoFocus={currentSlide === 0}
@@ -57,6 +65,8 @@ export const SlideMedidas = ({
         </div>
         <div>
           <CamposMedidas
+            title={title}
+            tipoMedida={medidasAlto}
             setData={setData}
             medida={"alto"}
             autoFocus={currentSlide === 1}
@@ -64,6 +74,7 @@ export const SlideMedidas = ({
         </div>
         <div>
           <CamposMedidas
+            title={title}
             setData={setData}
             medida={"Foto"}
             autoFocus={currentSlide === 2}

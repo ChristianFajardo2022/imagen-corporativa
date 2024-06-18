@@ -25,6 +25,7 @@ import { Cenefa } from "./componentes/Cenefa";
 import { Local } from "./componentes/Local";
 import { Avisos } from "./componentes/Avisos";
 import { Aviso } from "./componentes/Aviso";
+import { Gracias } from "./componentes/Gracias";
 
 const AppContent = ({ isAuthenticated, onLogin, onLogout }) => {
   const { Pagina, formData } = useSelector((state) => state.counter);
@@ -53,19 +54,21 @@ const AppContent = ({ isAuthenticated, onLogin, onLogout }) => {
               {Pagina === 8 && <Local />}
               {Pagina === 9 && <Avisos />}
               {Pagina === 10 && <Aviso />}
+              {Pagina === 11 && <Gracias />}
             </>
           }
         />
         <Route
           path="/administrador"
           element={
-            isAuthenticated ? <Administrador onLogout={onLogout} /> : <Navigate to="/login" />
+            isAuthenticated ? (
+              <Administrador onLogout={onLogout} />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
-        <Route
-          path="/login"
-          element={<Login onLogin={onLogin} />}
-        />
+        <Route path="/login" element={<Login onLogin={onLogin} />} />
       </Routes>
     </div>
   );
@@ -93,7 +96,11 @@ function App() {
 
   return (
     <Router>
-      <AppContent isAuthenticated={isAuthenticated} onLogin={handleLogin} onLogout={handleLogout} />
+      <AppContent
+        isAuthenticated={isAuthenticated}
+        onLogin={handleLogin}
+        onLogout={handleLogout}
+      />
     </Router>
   );
 }

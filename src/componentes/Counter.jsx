@@ -21,7 +21,7 @@ export const Counter = () => {
     alto: "",
     imagen: "",
   });
-
+  console.log(dataForm);
   //manejar el estado de active
   useEffect(() => {
     const camposCompletados = Object.values(dataForm).every(

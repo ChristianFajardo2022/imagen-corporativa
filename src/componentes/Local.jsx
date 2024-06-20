@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { increment, setPagina } from "../store/slices/counter/counterSlides";
+import {
+  decrement,
+  increment,
+  setPagina,
+} from "../store/slices/counter/counterSlides";
 import { ConstructorPropiedades } from "./ConstructorPropiedades";
 import { updateLocaleData } from "../firebase/firebaseService";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -46,7 +50,7 @@ export const Local = () => {
   };
 
   const handleClick = async () => {
-    const newDataLocal = [ ...dataLocal, dataForm];
+    const newDataLocal = [...dataLocal, dataForm];
     setDataLocal(newDataLocal);
 
     if (posicionPropiedad >= NumCounters) {
@@ -82,6 +86,8 @@ export const Local = () => {
   const paginalocal = () => {
     if (formData.mobiliario === "antiguo") {
       dispatch(setPagina(6));
+    } else {
+      dispatch(decrement());
     }
   };
 

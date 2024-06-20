@@ -81,7 +81,10 @@ select {
   @apply selector wBox hBox py-2 px-8;
 }
 .selectOpcions .tipoSelect__box {
-  @apply selector wBox hBox hover:bg-[--btn-ligth] hover:text-[--text-color-btn] px-0;
+  @apply selector wBox min-h-16 hover:bg-[--btn-ligth] hover:text-[--text-color-btn] px-0;
+}
+.selectOpcions .tipoSelect__box.selectorMedidas {
+  @apply w-3/4 m-auto;
 }
 .selectoresTexto.tipoSelect {
   @apply justify-between;
@@ -121,4 +124,22 @@ input[type="number"]::-webkit-outer-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+::-webkit-scrollbar-track {
+  background: white; /* Color de fondo del track de la barra */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(
+    --bg-color-one
+  ); /* Color de la barra de desplazamiento */
+  border-radius: 10px; /* Borde redondeado de la barra */
+  border: 2px solid white; /* Espacio entre la barra y el track */
+}
+/* Estilo para la barra de desplazamiento en Firefox */
+/* Nota: Esto solo funciona en Firefox 64+ */
+* {
+  scrollbar-color: var(--bg-color-one); /* Color del pulgar y del riel */
+  scrollbar-width: thin;
 }

@@ -54,7 +54,7 @@ export const SeleccionTipoCounter = ({
         icon={true}
       />
       {open && (
-        <div className="  tipoSelect__box flex-col overflow-hidden">
+        <div className="tipoSelect__box flex-col overflow-hidden">
           {cantidadCounter.map((counter, index) => (
             <span
               key={index}

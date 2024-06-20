@@ -26,12 +26,15 @@ const Administrador = ({ onLogout }) => {
   }, []);
 
   const handleSearch = () => {
-    const term = searchTerm.toLowerCase();
-    const filtered = locales.filter((locale) =>
-      Object.values(locale).some((value) =>
-        value.toString().toLowerCase().includes(term)
-      )
-    );
+    const term = searchTerm.trim();
+    if (!term) {
+      setFilteredLocales(locales);
+      setError("");
+      setCurrentPage(1);
+      return;
+    }
+
+    const filtered = locales.filter((locale) => locale.id.toString() === term);
     if (filtered.length) {
       setFilteredLocales(filtered);
       setError("");
@@ -62,7 +65,7 @@ const Administrador = ({ onLogout }) => {
                       e.preventDefault();
                       const link = document.createElement("a");
                       link.href = item.imagen;
-                      link.download = true;
+                      link.target = "_blank";
                       document.body.appendChild(link);
                       link.click();
                       document.body.removeChild(link);
@@ -71,8 +74,12 @@ const Administrador = ({ onLogout }) => {
                     <img src={item.imagen} alt="Imagen" className="max-w-20" />
                   </a>
                 </td>
-                <td className="py-2 px-4 border-2 text-lg">Ancho: {item.ancho}</td>
-                <td className="py-2 px-4 border-2 text-lg">Alto: {item.alto}</td>
+                <td className="py-2 px-4 border-2 text-lg">
+                  Ancho: {item.ancho}
+                </td>
+                <td className="py-2 px-4 border-2 text-lg">
+                  Alto: {item.alto}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -115,7 +122,9 @@ const Administrador = ({ onLogout }) => {
             locale[subTable.key] && locale[subTable.key].length > 0 ? (
               locale[subTable.key].map((item, index) => (
                 <tr key={`${subTable.key}-${index}`}>
-                  <td className="py-2 px-4 border-4 text-lg">{`${subTable.label} ${index + 1}`}</td>
+                  <td className="py-2 px-4 border-4 text-lg">{`${
+                    subTable.label
+                  } ${index + 1}`}</td>
                   <td className="py-4 px-4 border-4 text-lg">
                     {renderSubTable([item], `${subTable.label} ${index + 1}`)}
                   </td>
@@ -232,7 +241,7 @@ const Administrador = ({ onLogout }) => {
       <div className="my-4 px-4 flex justify-center items-center">
         <input
           type="text"
-          placeholder="Buscar por ID, Teléfono, Email, Dirección..."
+          placeholder="Buscar por ID"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="p-2 border border-gray-300 rounded-xl w-[400px]"
@@ -267,9 +276,15 @@ const Administrador = ({ onLogout }) => {
             <React.Fragment key={locale.id}>
               <tr>
                 <td className="py-2 px-4 border-b text-center">{locale.id}</td>
-                <td className="py-2 px-4 border-b text-center">{locale.direccion}</td>
-                <td className="py-2 px-4 border-b text-center">{locale.telefono}</td>
-                <td className="py-2 px-4 border-b text-center">{locale.email}</td>
+                <td className="py-2 px-4 border-b text-center">
+                  {locale.direccion}
+                </td>
+                <td className="py-2 px-4 border-b text-center">
+                  {locale.telefono}
+                </td>
+                <td className="py-2 px-4 border-b text-center">
+                  {locale.email}
+                </td>
                 <td className="py-2 px-4 border-b text-center">
                   <button
                     onClick={() => setSelectedLocale(locale)}
@@ -290,17 +305,21 @@ const Administrador = ({ onLogout }) => {
       </table>
 
       <div className="flex justify-center mt-4">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index}
-            onClick={() => handlePageChange(index + 1)}
-            className={`px-4 py-2 mx-1 rounded ${
-              currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-200"
-            }`}
-          >
-            {index + 1}
-          </button>
-        ))}
+        <div className="pagination-buttons">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={`px-4 py-2 mx-1 rounded ${
+                currentPage === index + 1
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
       </div>
 
       {selectedLocale && (

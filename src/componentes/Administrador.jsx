@@ -65,6 +65,7 @@ const Administrador = ({ onLogout }) => {
                       e.preventDefault();
                       const link = document.createElement("a");
                       link.href = item.imagen;
+                      link.download
                       link.target = "_blank";
                       document.body.appendChild(link);
                       link.click();

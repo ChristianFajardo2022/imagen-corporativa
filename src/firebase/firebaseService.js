@@ -68,21 +68,27 @@ const getUserCredentials = async (username) => {
 
 const uploadBlobToStorage = async (blob, path) => {
   try {
+    // Validar parámetros
+    if (!blob || !path) {
+      throw new Error("El blob y el path son requeridos");
+    }
+
     // Crear un nombre de archivo único usando la fecha y hora actual
-    const fileName = `image_${Date.now()}.webp`;
+    const fileName = `image_${Date.now()}.jpg`;
     const storageRef = ref(storage, `${path}/${fileName}`);
 
-    // Convertir blob a archivo
-    const file = new File([blob], fileName, { type: blob.type });
+    // Convertir blob a archivo y especificar el tipo de contenido como image/jpeg
+    const file = new File([blob], fileName, { type: 'image/jpeg' });
 
     // Subir archivo a Firebase Storage
-    await uploadBytes(storageRef, file);
+    await uploadBytes(storageRef, file, { contentType: 'image/jpeg' });
 
     // Obtener URL de descarga
     const downloadURL = await getDownloadURL(storageRef);
 
     return { success: true, url: downloadURL };
   } catch (error) {
+    // Manejar errores y devolver mensaje de error
     return { success: false, error: error.message };
   }
 };

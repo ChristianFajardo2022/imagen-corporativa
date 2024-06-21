@@ -39,10 +39,25 @@ export const Counter = () => {
   }, [imgSrc]);
 
   const uploadImageToStorage = async (imageBlob) => {
-    const storage = getStorage();
-    const storageRef = ref(storage, `images/${formData.id}/${Date.now()}`);
-    const snapshot = await uploadBytes(storageRef, imageBlob);
-    return await getDownloadURL(snapshot.ref);
+    try {
+      const storage = getStorage();
+      const fileName = `image_${Date.now()}.jpg`;
+      const storageRef = ref(storage, `images/${formData.id}/${fileName}`);
+  
+      // Convertir el blob a un archivo de tipo image/jpeg
+      const file = new File([imageBlob], fileName, { type: 'image/jpeg' });
+  
+      // Subir archivo a Firebase Storage con el tipo de contenido especificado
+      const snapshot = await uploadBytes(storageRef, file, { contentType: 'image/jpeg' });
+  
+      // Obtener la URL de descarga
+      const downloadURL = await getDownloadURL(snapshot.ref);
+  
+      return downloadURL;
+    } catch (error) {
+      console.error("Error al subir la imagen", error);
+      throw error;
+    }
   };
 
   const handleClick = async () => {

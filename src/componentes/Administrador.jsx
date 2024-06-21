@@ -9,7 +9,9 @@ const Administrador = ({ onLogout }) => {
   const [selectedLocale, setSelectedLocale] = useState(null);
   const [error, setError] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentGroup, setCurrentGroup] = useState(0); // Nuevo estado para el grupo de páginas
   const itemsPerPage = 10;
+  const pagesPerGroup = 10; // Número de páginas por grupo
 
   useEffect(() => {
     const fetchLocales = async () => {
@@ -31,6 +33,7 @@ const Administrador = ({ onLogout }) => {
       setFilteredLocales(locales);
       setError("");
       setCurrentPage(1);
+      setCurrentGroup(0);
       return;
     }
 
@@ -39,6 +42,7 @@ const Administrador = ({ onLogout }) => {
       setFilteredLocales(filtered);
       setError("");
       setCurrentPage(1);
+      setCurrentGroup(0);
     } else {
       setFilteredLocales([]);
       setError("No se encontraron datos coincidentes.");
@@ -65,7 +69,7 @@ const Administrador = ({ onLogout }) => {
                       e.preventDefault();
                       const link = document.createElement("a");
                       link.href = item.imagen;
-                      link.download
+                      link.download;
                       link.target = "_blank";
                       document.body.appendChild(link);
                       link.click();
@@ -228,6 +232,16 @@ const Administrador = ({ onLogout }) => {
     setCurrentPage(page);
   };
 
+  const handleGroupChange = (direction) => {
+    setCurrentGroup((prevGroup) => {
+      const newGroup = prevGroup + direction;
+      if (newGroup < 0 || newGroup >= Math.ceil(totalPages / pagesPerGroup)) {
+        return prevGroup;
+      }
+      return newGroup;
+    });
+  };
+
   const getCurrentPageData = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -235,6 +249,9 @@ const Administrador = ({ onLogout }) => {
   };
 
   const totalPages = Math.ceil(filteredLocales.length / itemsPerPage);
+  const startPage = currentGroup * pagesPerGroup + 1;
+  const endPage = Math.min(startPage + pagesPerGroup - 1, totalPages);
+  const pageNumbers = Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
 
   return (
     <div className="px-20 flex flex-col justify-start items-start w-full">
@@ -306,21 +323,33 @@ const Administrador = ({ onLogout }) => {
       </table>
 
       <div className="flex justify-center mt-4">
+        <button
+          onClick={() => handleGroupChange(-1)}
+          disabled={currentGroup === 0}
+          className="px-4 py-2 mx-1 rounded bg-gray-200"
+        >
+          &laquo;
+        </button>
         <div className="pagination-buttons">
-          {Array.from({ length: totalPages }, (_, index) => (
+          {pageNumbers.map((page) => (
             <button
-              key={index}
-              onClick={() => handlePageChange(index + 1)}
+              key={page}
+              onClick={() => handlePageChange(page)}
               className={`px-4 py-2 mx-1 rounded ${
-                currentPage === index + 1
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200"
+                currentPage === page ? "bg-blue-500 text-white" : "bg-gray-200"
               }`}
             >
-              {index + 1}
+              {page}
             </button>
           ))}
         </div>
+        <button
+          onClick={() => handleGroupChange(1)}
+          disabled={endPage === totalPages}
+          className="px-4 py-2 mx-1 rounded bg-gray-200"
+        >
+          &raquo;
+        </button>
       </div>
 
       {selectedLocale && (

@@ -24,7 +24,7 @@ export const SelectorMedidas = ({ setData, tipoMedida, nombreMedida }) => {
 
       {open && (
         <div
-          style={{ justifyContent: "center" }}
+          // style={{ justifyContent: "center" }}
           className="tipoSelect__box selectorMedidas flex-col absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-3/4 overflow-auto"
         >
           {tipoMedida.map((medi, index) => (

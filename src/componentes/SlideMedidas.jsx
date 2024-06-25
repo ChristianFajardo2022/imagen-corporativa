@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 //Medias de ancho
-const medidasAncho = [120, 130, 140, 150, 160, 170, 180, 190, 200, 210];
+const medidasAncho = [100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210];
 //Medias de alto
 const medidasAlto = [120];
 

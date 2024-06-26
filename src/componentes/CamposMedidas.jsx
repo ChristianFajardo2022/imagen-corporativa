@@ -21,8 +21,6 @@ export const CamposMedidas = ({
     }
   }, [fetchNumber]);
 
-  console.log(fetchNumber);
-
   const inputRef = useRef(null);
 
   const handleChange = (e) => {

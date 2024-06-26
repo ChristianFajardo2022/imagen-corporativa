@@ -25,6 +25,24 @@ export const Local = () => {
     alto: "",
     imagen: "",
   });
+  const [fecthMedias, setFecthMedias] = useState({});
+  //traer la data de los locales
+  useEffect(() => {
+    const fetchLocal = async () => {
+      const { data, error } = await getLocaleById(formData.id);
+      if (data) {
+        setImgSrc(data.dataCounter[0].imagen);
+        setFecthMedias({
+          ancho: data.dataCounter[0].ancho,
+          alto: data.dataCounter[0].alto,
+        });
+      } else {
+        alert(error);
+      }
+    };
+
+    fetchLocal();
+  }, []);
 
   //manejar el estado de active
   useEffect(() => {
@@ -47,16 +65,18 @@ export const Local = () => {
       const storage = getStorage();
       const fileName = `image_${Date.now()}.jpg`;
       const storageRef = ref(storage, `images/${formData.id}/${fileName}`);
-  
+
       // Convertir el blob a un archivo de tipo image/jpeg
-      const file = new File([imageBlob], fileName, { type: 'image/jpeg' });
-  
+      const file = new File([imageBlob], fileName, { type: "image/jpeg" });
+
       // Subir archivo a Firebase Storage con el tipo de contenido especificado
-      const snapshot = await uploadBytes(storageRef, file, { contentType: 'image/jpeg' });
-  
+      const snapshot = await uploadBytes(storageRef, file, {
+        contentType: "image/jpeg",
+      });
+
       // Obtener la URL de descarga
       const downloadURL = await getDownloadURL(snapshot.ref);
-  
+
       return downloadURL;
     } catch (error) {
       console.error("Error al subir la imagen", error);
@@ -120,6 +140,7 @@ export const Local = () => {
       setMedidaNum={setMedidaNum}
       medidaNum={medidaNum}
       setDataForm={setDataForm}
+      fetchNumber={fecthMedias}
     />
   );
 };

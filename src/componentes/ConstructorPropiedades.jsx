@@ -16,6 +16,7 @@ export const ConstructorPropiedades = ({
   medidaNum,
   title,
   paginalocal,
+  fetchNumber,
 }) => {
   const sliderRef = useRef(null);
 
@@ -23,7 +24,8 @@ export const ConstructorPropiedades = ({
     if (medidaNum <= 1) {
       sliderRef.current.slickNext();
     } else {
-      active ? handleClick() : alert("Ningún campo puede estar vacío");
+      //active ? handleClick() : alert("Ningún campo puede estar vacío");
+      handleClick();
     }
   };
 
@@ -60,6 +62,7 @@ export const ConstructorPropiedades = ({
                     setImgSrc={setImgSrc}
                     setMedidaNum={setMedidaNum}
                     setData={setDataForm}
+                    fetchNumber={fetchNumber}
                   />
                 </>
               </Propiedad>

@@ -5,7 +5,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 //Medias de ancho
-const medidasAncho = [100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210];
+const medidasAncho = [
+  100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210,
+];
 //Medias de alto
 const medidasAlto = [120];
 
@@ -17,6 +19,7 @@ export const SlideMedidas = ({
   setImgSrc,
   sliderRef,
   title,
+  fetchNumber,
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -61,6 +64,7 @@ export const SlideMedidas = ({
             setData={setData}
             medida={"ancho"}
             autoFocus={currentSlide === 0}
+            fetchNumber={fetchNumber.ancho}
           />
         </div>
         <div>
@@ -70,6 +74,7 @@ export const SlideMedidas = ({
             setData={setData}
             medida={"alto"}
             autoFocus={currentSlide === 1}
+            fetchNumber={fetchNumber.alto}
           />
         </div>
         <div>

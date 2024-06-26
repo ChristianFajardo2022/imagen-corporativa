@@ -2,10 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Button } from "./Button";
 import DepartmentSelector from "./DatosColombia";
 import { useDispatch } from "react-redux";
-import { increment, setData } from "../store/slices/counter/counterSlides";
+import {
+  increment,
+  setData,
+  setPagina,
+} from "../store/slices/counter/counterSlides";
 import { getLocaleById, addLocaleData } from "../firebase/firebaseService";
+import Login from "./Login";
 
 export const Inicio = () => {
+  const dispatch = useDispatch();
   const [active, setActive] = useState(false);
   const [formdata, setFormData] = useState({
     id: "",
@@ -26,11 +32,9 @@ export const Inicio = () => {
     };
   }, []);
 
-  const dispatch = useDispatch();
-
   //Habilitar el boton
   useEffect(() => {
-    setActive(formdata.id !== "" && formdata.ciudad !== "");
+    setActive(formdata.id !== "");
   }, [formdata]);
 
   //Funcion para manejar datos de los campos
@@ -60,8 +64,8 @@ export const Inicio = () => {
 
       // Si el ID es correcto, navega al componente Seguridad con el ID como parámetro en la URL
       updateField("id", formdata.id);
-      updateField("ciudad", formdata.ciudad);
-      dispatch(increment());
+      //updateField("ciudad", formdata.ciudad);
+      dispatch(setPagina(3));
     } catch (error) {
       alert(error.message);
     }
@@ -87,7 +91,7 @@ export const Inicio = () => {
           placeholder="Número de id"
         />
 
-        <DepartmentSelector HandleChangeData={HandleChangeData} />
+        {/* <DepartmentSelector HandleChangeData={HandleChangeData} /> */}
       </div>
 
       <Button

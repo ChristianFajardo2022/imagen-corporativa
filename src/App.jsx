@@ -42,8 +42,8 @@ const AppContent = ({ isAuthenticated, onLogin, onLogout }) => {
           element={
             <>
               {Pagina === 0 && <Inicio />}
-              {Pagina === 1 && <Seguridad />}
-              {Pagina === 2 && <Comprobado />}
+              {/*               {Pagina === 1 && <Seguridad />}
+              {Pagina === 2 && <Comprobado />} */}
               {Pagina === 3 && <TipoAgencia />}
               {Pagina === 4 && <TiposMobiliario />}
               {Pagina === 5 && <Counters />}

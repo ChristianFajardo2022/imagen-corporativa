@@ -33,7 +33,10 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <form onSubmit={handleLogin} className="bg-white p-6 rounded-xl shadow-xl w-80">
+      <form
+        onSubmit={handleLogin}
+        className="bg-white p-6 rounded-xl shadow-xl w-80"
+      >
         <h2 className="text-4xl mb-4">Iniciar sesión</h2>
         {error && <div className="text-red-500 mb-4">{error}</div>}
         <div className="mb-4">

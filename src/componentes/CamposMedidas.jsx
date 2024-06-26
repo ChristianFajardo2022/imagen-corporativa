@@ -11,8 +11,17 @@ export const CamposMedidas = ({
   setImgSrc,
   tipoMedida,
   title,
+  fetchNumber,
 }) => {
-  const [number, setNumber] = useState("");
+  const [number, setNumber] = useState();
+
+  useEffect(() => {
+    if (fetchNumber) {
+      setNumber(fetchNumber);
+    }
+  }, [fetchNumber]);
+
+  console.log(fetchNumber);
 
   const inputRef = useRef(null);
 
@@ -56,8 +65,49 @@ export const CamposMedidas = ({
     };
   }, []);
 
-
   return (
+    <div className="campos w-full flexCenter flex-col px-2 relative">
+      <div className="bg-[--btn-active] px-10 pt-6 rounded-2xl">
+        <p className="w-full text-white text-center">
+          {takephoto ? (
+            <>
+              Toma una foto desde tu celular o comparte una imagen desde tu
+              computador en formato jpg o png
+            </>
+          ) : (
+            <>
+              Toma la medida como se muestra en la imagen y escríbela aquí en cm{" "}
+              <b>"ejemplo: 150 cm."</b>
+            </>
+          )}
+        </p>
+
+        {takephoto ? (
+          <TakePhoto takephoto={true} imgSrc={imgSrc} setImgSrc={setImgSrc} />
+        ) : (
+          <>
+            <input
+              autoComplete="off"
+              ref={inputRef}
+              className="text-center"
+              type="text"
+              name={medida}
+              placeholder={`${medida} en cm`}
+              value={number}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+            />
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+/* 
+
+return (
     <div className="campos w-full flexCenter flex-col px-2 relative">
       <div className="bg-[--btn-active] px-10 pt-6 rounded-2xl">
         <p className="w-full text-white text-center">
@@ -89,8 +139,9 @@ export const CamposMedidas = ({
               />
             )}
           </>
+          
         )}
       </div>
     </div>
   );
-};
+*/

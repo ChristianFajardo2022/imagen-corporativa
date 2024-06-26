@@ -56,11 +56,12 @@ export const CamposMedidas = ({
     };
   }, []);
 
+
   return (
     <div className="campos w-full flexCenter flex-col px-2 relative">
       <div className="bg-[--btn-active] px-10 pt-6 rounded-2xl">
         <p className="w-full text-white text-center">
-          Toma la medida como se muestra en la imagen y escríbela aquí.
+        { takephoto ? (<>Toma una foto desde tu celular o comparte una imagen desde tu computador en formato jpg o png</>) : (<>Toma la medida como se muestra en la imagen y escríbela aquí en cm <b>"ejemplo: 150 cm."</b></>)} 
         </p>
 
         {takephoto ? (

@@ -19,6 +19,7 @@ import { TiposCounter } from "./componentes/TiposCounter";
 import Comprobado from "./componentes/Comprobado";
 import Administrador from "./componentes/Administrador";
 import Login from "./componentes/Login";
+import LoginDos from "./componentes/LoginInicio";
 import { Counters } from "./componentes/Counters";
 import { Counter } from "./componentes/Counter";
 import { Cenefa } from "./componentes/Cenefa";
@@ -40,22 +41,24 @@ const AppContent = ({ isAuthenticated, onLogin, onLogout }) => {
         <Route
           path="/"
           element={
-            <>
-              {Pagina === 0 && <Inicio />}
-              {/*               {Pagina === 1 && <Seguridad />}
-              {Pagina === 2 && <Comprobado />} */}
-              {Pagina === 3 && <TipoAgencia />}
-              {Pagina === 4 && <TiposMobiliario />}
-              {Pagina === 5 && <Counters />}
-              {Pagina === 6 && <Counter />}
-
-              {Pagina === 7 && <Cenefa />}
-
-              {Pagina === 8 && <Local />}
-              {Pagina === 9 && <Avisos />}
-              {Pagina === 10 && <Aviso />}
-              {Pagina === 11 && <Gracias />}
-            </>
+            isAuthenticated ? (
+              <>
+                {Pagina === 0 && <Inicio />}
+                {/* {Pagina === 1 && <Seguridad />}
+                {Pagina === 2 && <Comprobado />} */}
+                {Pagina === 3 && <TipoAgencia />}
+                {Pagina === 4 && <TiposMobiliario />}
+                {Pagina === 5 && <Counters />}
+                {Pagina === 6 && <Counter />}
+                {Pagina === 7 && <Cenefa />}
+                {Pagina === 8 && <Local />}
+                {Pagina === 9 && <Avisos />}
+                {Pagina === 10 && <Aviso />}
+                {Pagina === 11 && <Gracias />}
+              </>
+            ) : (
+              <Navigate to="/loginDos" />
+            )
           }
         />
         <Route
@@ -69,6 +72,7 @@ const AppContent = ({ isAuthenticated, onLogin, onLogout }) => {
           }
         />
         <Route path="/login" element={<Login onLogin={onLogin} />} />
+        <Route path="/loginDos" element={<LoginDos onLogin={onLogin} />} />
       </Routes>
     </div>
   );
